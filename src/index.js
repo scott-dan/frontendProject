@@ -10,6 +10,7 @@ import {
   Search,
   About,
   Contact,
+  LanguageMap,
 } from "./components";
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
       <Route path="/search" element={<Search />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/map" element={<LanguageMap />} />
     </Routes>
     <Footer />
   </Router>,
