@@ -19,6 +19,7 @@ function Search() {
                     <option value="type1">Type 1</option>
                     <option value="type2">Type 2</option>
                     <option value="type3">Type 3</option>
+                    <option value="type4">Type 4</option>
                 </select><br/>
                 </div>
                 
