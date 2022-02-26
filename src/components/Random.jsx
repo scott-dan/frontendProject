@@ -1,6 +1,7 @@
 import React from "react";
+
 //import Card from "mtgsdk";
-let url = "https://thronesapi.com/api/v2/Characters";
+let url = "https://api.magicthegathering.io/v1/cards";
 //const mtg = require('mtgsdk')
 
 function Random() {
@@ -56,27 +57,22 @@ function Random() {
   );
 }
 function rnd() {
-  let page = document.getElementById("randomResult")[0];
-  //let tes = document.getElementsByClassName('test');
-  //let t = document.getElementById('help');
-  //console.log(t.innerHTML);
-  //console.log(tes.innerHTML);
-  //tes.innerHTML = "ddddd";
+  let page = document.getElementById("randomResult");
   console.log("hello");
-  //while (page.firstChild) {
-  //  page.removeChild(page.firstChild);
-  //}
+  while (page.firstChild) {
+    page.removeChild(page.firstChild);
+  }
   fetch(url)
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => console.log(data.cards));
   //.then(data => console.log(data.cards[1]));
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      data.forEach((element) => {
+      data.cards.forEach((element) => {
         if (element.multiverseid === "130550") {
-          let result = document.crateElement("div");
+          let result = document.createElement("div");
           let name = document.createElement("p");
           name.classList.add("name");
           name.innerHTML = element.name;
