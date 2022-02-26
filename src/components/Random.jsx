@@ -21,10 +21,12 @@ function Random() {
                 <label htmlFor="card-type">Card Type:</label>
                 <br />
                 <select name="card-type" id="card-type">
-                  <option>Choose an Option</option>
-                  <option value="type1">Type 1</option>
-                  <option value="type2">Type 2</option>
-                  <option value="type3">Type 3</option>
+                  <option>Choose a card type</option>
+                  <option value="type1">All types</option>
+                  <option value="type2">Creatues</option>
+                  <option value="type3">???</option>
+                  <option value="type4">???</option>
+                  <option value="type5">???</option>
                 </select>
                 <br />
               </div>
@@ -50,22 +52,26 @@ function Random() {
   );
 }
 function rnd() {
+  let rand = Math.floor(Math.random() * 100);
   let page = document.getElementById("randomResult");
-  console.log("hello");
+  let iterator = 0;
 
   while (page.firstChild) {
     page.removeChild(page.firstChild);
   }
 
-  fetch(url)
+  fetch(url) //To see the full cards in the console
     .then((response) => response.json())
     .then((data) => console.log(data.cards));
-  //.then(data => console.log(data.cards[1]));
 
-  fetch(url)
+  fetch(url)// More in-depth then needed but searches through each card.
     .then((response) => response.json())
     .then((data) => {
       data.cards.forEach((element) => {
+        iterator++;
+        if (iterator === rand){//Random card without checking type option
+          console.log("found", element);
+        }
         if (element.multiverseid === "130550") {
           let result = document.createElement("div");
 
@@ -98,9 +104,9 @@ function rnd() {
           rarity.classList.add("name");
           rarity.innerHTML = "Rarity: " + element.rarity;
 
-          let subtypes = document.createElement("p");
-          subtypes.classList.add("name");
-          subtypes.innerHTML = "Subtypes: " + element.subtypes;
+          let type = document.createElement("p");
+          type.classList.add("name");
+          type.innerHTML = "Types: " + element.type;
 
           let set = document.createElement("p");
           set.classList.add("name");
@@ -117,7 +123,7 @@ function rnd() {
           result.appendChild(cost);
           result.appendChild(power);
           result.appendChild(rarity);
-          result.appendChild(subtypes);
+          result.appendChild(type);
           result.appendChild(set);
 
           page.appendChild(result);
