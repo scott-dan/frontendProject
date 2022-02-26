@@ -41,16 +41,9 @@ function Random() {
           </div>
         </div>
       </div>
-      <div className="randomizer">
-        <div>
-          <p className="test" id="help">
-            {" "}
-            do I show
-          </p>
-        </div>
-
+      <div className="randomizer text-center">
         <section className="randomResult" id="randomResult">
-          <div>Hi</div>
+          <div>Hi!</div>
         </section>
       </div>
     </div>
@@ -59,9 +52,11 @@ function Random() {
 function rnd() {
   let page = document.getElementById("randomResult");
   console.log("hello");
+
   while (page.firstChild) {
     page.removeChild(page.firstChild);
   }
+
   fetch(url)
     .then((response) => response.json())
     .then((data) => console.log(data.cards));
@@ -73,20 +68,57 @@ function rnd() {
       data.cards.forEach((element) => {
         if (element.multiverseid === "130550") {
           let result = document.createElement("div");
+
           let name = document.createElement("p");
           name.classList.add("name");
           name.innerHTML = element.name;
+
           let image = document.createElement("img");
-          image.src = element.imageURL;
+          image.src = element.imageUrl;
+          console.log(element);
           image.classList.add("image");
 
-          let test = document.createElement("p");
-          test.classList.add("name");
-          test.InnerHtml = "testing";
+          let desc = document.createElement("p");
+          desc.classList.add("name");
+          desc.innerHTML = element.text;
 
-          result.appendChild(test);
+          let color = document.createElement("p");
+          color.classList.add("name");
+          color.innerHTML = "Colors: " + element.colors;
+
+          let cost = document.createElement("p");
+          cost.classList.add("name");
+          cost.innerHTML = "Cost: " + element.manaCost;
+
+          let power = document.createElement("p");
+          power.classList.add("name");
+          power.innerHTML = "Power: " + element.power;
+
+          let rarity = document.createElement("p");
+          rarity.classList.add("name");
+          rarity.innerHTML = "Rarity: " + element.rarity;
+
+          let subtypes = document.createElement("p");
+          subtypes.classList.add("name");
+          subtypes.innerHTML = "Subtypes: " + element.subtypes;
+
+          let set = document.createElement("p");
+          set.classList.add("name");
+          set.innerHTML = "Set: " + element.setName;
+
+          let art = document.createElement("p");
+          art.classList.add("name");
+          art.innerHTML = "Artist: " + element.artist;
+
           result.appendChild(name);
           result.appendChild(image);
+          result.appendChild(desc);
+          result.appendChild(color);
+          result.appendChild(cost);
+          result.appendChild(power);
+          result.appendChild(rarity);
+          result.appendChild(subtypes);
+          result.appendChild(set);
 
           page.appendChild(result);
         }
