@@ -19,24 +19,24 @@ function Card(props) {
           ></img>
         </div>
         <div class="grid-item item2">
+          <strong>Name:&nbsp;</strong>
+          <p>{props.value.name}</p>
+        </div>
+        <div class="grid-item item3">
           <strong>Artist:&nbsp;</strong>
           <p>{props.value.artist}</p>
         </div>
-        <div class="grid-item item3">
+        <div class="grid-item item4">
           <strong>Lore:&nbsp;</strong>
           <p>{props.value.flavor}</p>
         </div>
-        <div class="grid-item item4">
+        <div class="grid-item item5">
           <strong>Type:&nbsp;</strong>
           {props.value.originalType}
         </div>
-        <div class="grid-item item5">
+        <div class="grid-item item6">
           <strong>Rarity:&nbsp;</strong>
           {props.value.rarity}
-        </div>
-        <div class="grid-item item6">
-          <strong>Set:&nbsp;</strong>
-          <p>{props.value.setName}</p>
         </div>
         <div class="grid-item item7">
           <strong>Power:&nbsp;</strong>
@@ -45,6 +45,10 @@ function Card(props) {
         <div class="grid-item item8">
           <strong>Toughness:&nbsp;</strong>
           <p>{props.value.toughness}</p>
+        </div>
+        <div class="grid-item item9">
+          <strong>Set:&nbsp;</strong>
+          {props.value.setName}
         </div>
         <div class="grid-item item10">
           <strong>Description:&nbsp;</strong>

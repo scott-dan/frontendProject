@@ -23,14 +23,15 @@ div.grid-item.item1{
 
 div.grid-item.item2{
   grid-column: span 3;
-  
 }
 
 div.grid-item.item3{
   grid-column: span 3;
 }
+
 div.grid-item.item4{
   grid-column: span 3;
+  grid-row: span 2;
 }
 div.grid-item.item5{
 grid-column: span 3;
@@ -40,7 +41,15 @@ div.grid-item.item6{
   grid-column: span 3;
 }
 
+div.grid-item.item7{
+  grid-column: span 1;
+}
+
 div.grid-item.item8{
+  grid-column: span 2;
+}
+
+div.grid-item.item9{
   grid-column: span 2;
 }
 
