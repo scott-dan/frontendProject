@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../components/styles/searchStyles.css";
 import { noSpecialCharacters, validEmail, validPassword } from "./regex.jsx";
 
 let url = "https://api.magicthegathering.io/v1/";
@@ -8,7 +9,48 @@ let url = "https://api.magicthegathering.io/v1/";
 function Card(props) {
   return (
     <div>
-      <img src={props.value}></img>
+      <section class="grid-container">
+        <div class="grid-item item1">
+          <img
+            src={props.value.imageUrl}
+            alt={`${props.value.name}`}
+            height="300"
+            width="200"
+          ></img>
+        </div>
+        <div class="grid-item item2">
+          <strong>Artist:&nbsp;</strong>
+          <p>{props.value.artist}</p>
+        </div>
+        <div class="grid-item item3">
+          <strong>Lore:&nbsp;</strong>
+          <p>{props.value.flavor}</p>
+        </div>
+        <div class="grid-item item4">
+          <strong>Type:&nbsp;</strong>
+          {props.value.originalType}
+        </div>
+        <div class="grid-item item5">
+          <strong>Rarity:&nbsp;</strong>
+          {props.value.rarity}
+        </div>
+        <div class="grid-item item6">
+          <strong>Set:&nbsp;</strong>
+          <p>{props.value.setName}</p>
+        </div>
+        <div class="grid-item item7">
+          <strong>Power:&nbsp;</strong>
+          <p>{props.value.power}</p>
+        </div>
+        <div class="grid-item item8">
+          <strong>Toughness:&nbsp;</strong>
+          <p>{props.value.toughness}</p>
+        </div>
+        <div class="grid-item item10">
+          <strong>Description:&nbsp;</strong>
+          {props.value.originalText}
+        </div>
+      </section>
     </div>
   );
 }
@@ -85,13 +127,17 @@ class Search extends React.Component {
     let temp = this.state.rawCardData;
     console.log("raw card data: ", this.state.rawCardData.cards[0].imageUrl);
     let uiItems = [];
-    uiItems.push(
-      <div class="p-3">
-        <Card value={this.state.rawCardData.cards[0].imageUrl}></Card>
-        <div></div>
-      </div>
-    );
-
+    for (let i = 0; i < this.state.rawCardData.cards.length; i++) {
+      //if (this.state.rawCardData.cards[i].imageUrl !== null) {
+      uiItems.push(
+        <div class="p-3">
+          <Card value={this.state.rawCardData.cards[i]}></Card>
+          <br />
+          <br />
+        </div>
+      );
+    }
+    //}
     return uiItems;
   }
 
@@ -141,7 +187,9 @@ class Search extends React.Component {
             <p>Error: failed to retrieve card data. Please try again.</p>
           )}
         </div>
-        <div>{this.state.newCardsToRender && this.renderDivs()}</div>
+        <div class="d-inline-flex flex-wrap">
+          {this.state.newCardsToRender && this.renderDivs()}
+        </div>
       </div>
     );
   }
