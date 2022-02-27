@@ -5,6 +5,14 @@ import { noSpecialCharacters, validEmail, validPassword } from "./regex.jsx";
 
 let url = "https://api.magicthegathering.io/v1/";
 
+function Card(props) {
+  return (
+    <div>
+      <img src={props.value}></img>
+    </div>
+  );
+}
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +25,9 @@ class Search extends React.Component {
       count: 0,
       badUserInput: false,
       apiCallError: false,
+      searchResults: [],
+      rawCardData: [],
+      newCardsToRender: false,
     };
     this.handleAddingDivs = this.handleAddingDivs.bind(this);
   }
@@ -34,7 +45,6 @@ class Search extends React.Component {
       this.setState({ badUserInput: true });
       console.log("badUserInput:", this.state.badUserInput);
     } else {
-      //this.getData();
       this.setState({ badUserInput: false }, this.getData());
     }
   }
@@ -62,15 +72,7 @@ class Search extends React.Component {
           apiCallError: false,
         });
         console.log(this.state.characters);
-        for (let i = 0; i < response.data.length; i++) {
-          if (response.data[i].fullName === this.state.inputValue) {
-            this.setState({ character: response.data[i] });
-            this.setState({ foundCharacter: true });
-            this.setState({ foundCharacter: true });
-            this.handleAddingDivs();
-            break;
-          }
-        }
+        this.setState({ newCardsToRender: true, rawCardData: response.data });
       })
       .catch((error) => this.setState({ apiCallError: true }));
   }
@@ -80,25 +82,16 @@ class Search extends React.Component {
   }
 
   renderDivs() {
+    let temp = this.state.rawCardData;
+    console.log("raw card data: ", this.state.rawCardData.cards[0].imageUrl);
     let uiItems = [];
-    if (this.state.foundCharacter) {
-      uiItems.push(
-        <div class="p-3">
-          <img
-            src={`${this.state.character.imageUrl}`}
-            alt="temp"
-            width="250"
-            height="250"
-          ></img>
-          <p class="text-white font-weight-bold">
-            {this.state.character.fullName}
-          </p>
-          <p class="text-white font-weight-bold">
-            {this.state.character.title}
-          </p>
-        </div>
-      );
-    }
+    uiItems.push(
+      <div class="p-3">
+        <Card value={this.state.rawCardData.cards[0].imageUrl}></Card>
+        <div></div>
+      </div>
+    );
+
     return uiItems;
   }
 
@@ -148,6 +141,7 @@ class Search extends React.Component {
             <p>Error: failed to retrieve card data. Please try again.</p>
           )}
         </div>
+        <div>{this.state.newCardsToRender && this.renderDivs()}</div>
       </div>
     );
   }
