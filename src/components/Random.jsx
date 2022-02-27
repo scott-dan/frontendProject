@@ -13,20 +13,20 @@ function Random() {
             <div className="col-lg-5">
               <h1 className="font-weight-light">Generate</h1>
               <p>
-                This returns a random generated card with the ability to select
-                from a category of predefined options to filter what type of
-                random Card will be displayed
+                Select what type you wish your random card to be. 
+                You may chose from Creatues, Lands, Enchantments, Artifacts, Instants, 
+                or all of the above.
               </p>
               <div className="card-type">
                 <label htmlFor="card-type">Card Type:</label>
                 <br />
                 <select name="card-type" id="card-type">
-                  <option>Choose a card type</option>
-                  <option value="type1">All types</option>
-                  <option value="type2">Creatues</option>
-                  <option value="type3">???</option>
-                  <option value="type4">???</option>
-                  <option value="type5">???</option>
+                  <option value="All">All Types</option>
+                  <option value="Creature">Creatures</option>
+                  <option value="Land">Lands</option>
+                  <option value="Enchantment">Enchantments</option>
+                  <option value="Artifact">Artifacts</option>
+                  <option value="Instant">Instants</option>
                 </select>
                 <br />
               </div>
@@ -38,7 +38,8 @@ function Random() {
             <p>
               This returns a random generated card with the ability to select
               from a category of predefined options to filter what type of
-              random Card will be displayed.
+              random Card will be displayed. This generated search chooses 
+              from over 5,000 Magic the Gathering cards.
             </p>
           </div>
         </div>
@@ -51,84 +52,112 @@ function Random() {
     </div>
   );
 }
+/**
+ * Generates a url consisting of the default api address and a
+ * random value to use as an id within the json limit.
+ * These are combined together then parsed to create elements
+ * to then append to the page.
+ * Uses only one API call.
+ **/
 function rnd() {
-  let rand = Math.floor(Math.random() * 100);
-  let page = document.getElementById("randomResult");
-  let iterator = 0;
+  let rand = Math.floor(Math.random() * 4980);
+  let serchUrl = url + "/" + rand;
+  let randSelected = Math.floor(Math.random() * 100);
+  console.log(serchUrl);
 
+  let page = document.getElementById("randomResult");
+  let selectedType = document.getElementById("card-type");
+  if (selectedType.value !== "All") {
+    fetch(url + "/?types=" + selectedType.value)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data.cards[randSelected]);
+      });
+  }
+  console.log(selectedType.value);
   while (page.firstChild) {
     page.removeChild(page.firstChild);
   }
 
-  fetch(url) //To see the full cards in the console
+  /* // For console testing to view card Json. Unnecessary Query otherwise.
+  fetch(serchUrl)
     .then((response) => response.json())
-    .then((data) => console.log(data.cards));
+    .then((data) => console.log(data.card.name));
+*/
 
-  fetch(url)// More in-depth then needed but searches through each card.
+  fetch(serchUrl) // More in-depth then needed but searches through each card.
     .then((response) => response.json())
     .then((data) => {
-      data.cards.forEach((element) => {
-        iterator++;
-        if (iterator === rand){//Random card without checking type option
-          console.log("found", element);
-        }
-        if (element.multiverseid === "130550") {
-          let result = document.createElement("div");
+      //data.card.forEach((element) => {
+      //iterator++;
+      //if (iterator === rand){//Random card without checking type option
+      //  console.log("found", element);
+      //}
 
-          let name = document.createElement("p");
-          name.classList.add("name");
-          name.innerHTML = element.name;
+      //Ensures it's a valid card.
+      if (data.card.multiverseid !== undefined) {
 
-          let image = document.createElement("img");
-          image.src = element.imageUrl;
-          console.log(element);
-          image.classList.add("image");
+        //Outputs for console viewing
+        console.log(data.card);
+        let result = document.createElement("div");
 
-          let desc = document.createElement("p");
-          desc.classList.add("name");
-          desc.innerHTML = element.text;
+        let name = document.createElement("p");
+        name.classList.add("name");
+        name.innerHTML = data.card.name;
 
-          let color = document.createElement("p");
-          color.classList.add("name");
-          color.innerHTML = "Colors: " + element.colors;
+        let image = document.createElement("img");
+        image.src = data.card.imageUrl;
+        
+        image.classList.add("image");
 
-          let cost = document.createElement("p");
-          cost.classList.add("name");
-          cost.innerHTML = "Cost: " + element.manaCost;
+        let desc = document.createElement("p");
+        desc.classList.add("name");
+        desc.innerHTML = data.card.text;
 
-          let power = document.createElement("p");
-          power.classList.add("name");
-          power.innerHTML = "Power: " + element.power;
+        let color = document.createElement("p");
+        color.classList.add("name");
+        color.innerHTML = "Colors: " + data.card.colors;
 
-          let rarity = document.createElement("p");
-          rarity.classList.add("name");
-          rarity.innerHTML = "Rarity: " + element.rarity;
+        let cost = document.createElement("p");
+        cost.classList.add("name");
+        cost.innerHTML = "Cost: " + data.card.manaCost;
 
-          let type = document.createElement("p");
-          type.classList.add("name");
-          type.innerHTML = "Types: " + element.type;
+        let power = document.createElement("p");
+        power.classList.add("name");
+        power.innerHTML = "Power: " + data.card.power;
 
-          let set = document.createElement("p");
-          set.classList.add("name");
-          set.innerHTML = "Set: " + element.setName;
+        let rarity = document.createElement("p");
+        rarity.classList.add("name");
+        rarity.innerHTML = "Rarity: " + data.card.rarity;
 
-          let art = document.createElement("p");
-          art.classList.add("name");
-          art.innerHTML = "Artist: " + element.artist;
+        let type = document.createElement("p");
+        type.classList.add("name");
+        type.innerHTML = "Types: " + data.card.type;
 
-          result.appendChild(name);
-          result.appendChild(image);
-          result.appendChild(desc);
-          result.appendChild(color);
-          result.appendChild(cost);
-          result.appendChild(power);
-          result.appendChild(rarity);
-          result.appendChild(type);
-          result.appendChild(set);
+        let set = document.createElement("p");
+        set.classList.add("name");
+        set.innerHTML = "Set: " + data.card.setName;
 
-          page.appendChild(result);
-        }
-      });
+        let art = document.createElement("p");
+        art.classList.add("name");
+        art.innerHTML = "Artist: " + data.card.artist;
+
+        result.appendChild(name);
+        result.appendChild(image);
+        result.appendChild(desc);
+        result.appendChild(color);
+        result.appendChild(cost);
+        result.appendChild(power);
+        result.appendChild(rarity);
+        result.appendChild(type);
+        result.appendChild(set);
+
+        page.appendChild(result);
+      } else {
+        console.error("Invalid card id passed.");
+      }
+      // });
     });
 }
 export default Random;
