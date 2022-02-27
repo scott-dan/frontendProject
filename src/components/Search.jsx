@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { noSpecialCharacters, validEmail, validPassword } from './regex.jsx';
+import { noSpecialCharacters, validEmail, validPassword } from "./regex.jsx";
 
 let url = "https://api.magicthegathering.io/v1/";
 
@@ -16,6 +16,7 @@ class Search extends React.Component {
       foundCharacter: false,
       count: 0,
       badUserInput: false,
+      apiCallError: false,
     };
     this.handleAddingDivs = this.handleAddingDivs.bind(this);
   }
@@ -27,35 +28,51 @@ class Search extends React.Component {
     });
   }
 
-  validateUserInput(){
-    console.log(noSpecialCharacters.test(this.state.inputValue))
-    if(!noSpecialCharacters.test(this.state.inputValue)){
-      this.setState({badUserInput: true});
+  validateUserInput() {
+    console.log(noSpecialCharacters.test(this.state.inputValue));
+    if (!noSpecialCharacters.test(this.state.inputValue)) {
+      this.setState({ badUserInput: true });
       console.log("badUserInput:", this.state.badUserInput);
-    }
-    else{
-      this.setState({badUserInput: false}, this.getData());
+    } else {
+      //this.getData();
+      this.setState({ badUserInput: false }, this.getData());
     }
   }
 
   getData() {
-    console.log("url: ", url + this.state.searchCategory + "?name=" + this.state.inputValue);
+    console.log(
+      "url: ",
+      url +
+        this.state.searchCategory +
+        "?name=" +
+        encodeURI(this.state.inputValue)
+    );
     console.log("url encoded input value: ", encodeURI(this.state.inputValue));
-    axios.get(url + encodeURI(this.state.inputValue)).then((response) => {
-      this.setState({
-        characters: response.data,
-      });
-      console.log(this.state.characters);
-      for (let i = 0; i < response.data.length; i++) {
-        if (response.data[i].fullName === this.state.inputValue) {
-          this.setState({ character: response.data[i] });
-          this.setState({ foundCharacter: true });
-          this.setState({ foundCharacter: true });
-          this.handleAddingDivs();
-          break;
+    //
+    let temp =
+      url +
+      this.state.searchCategory +
+      "?name=" +
+      encodeURI(this.state.inputValue);
+    axios
+      .get(temp)
+      .then((response) => {
+        this.setState({
+          characters: response.data,
+          apiCallError: false,
+        });
+        console.log(this.state.characters);
+        for (let i = 0; i < response.data.length; i++) {
+          if (response.data[i].fullName === this.state.inputValue) {
+            this.setState({ character: response.data[i] });
+            this.setState({ foundCharacter: true });
+            this.setState({ foundCharacter: true });
+            this.handleAddingDivs();
+            break;
+          }
         }
-      }
-    });
+      })
+      .catch((error) => this.setState({ apiCallError: true }));
   }
 
   handleAddingDivs() {
@@ -122,7 +139,14 @@ class Search extends React.Component {
           {this.state.showSearchBar ? this.searchBar() : null}
         </div>
         <div>
-          {this.state.badUserInput && <p>Error: no special characters allowed in search. Please try again.</p>}
+          {this.state.badUserInput && (
+            <p>
+              Error: no special characters allowed in search. Please try again.
+            </p>
+          )}
+          {this.state.apiCallError && (
+            <p>Error: failed to retrieve card data. Please try again.</p>
+          )}
         </div>
       </div>
     );
