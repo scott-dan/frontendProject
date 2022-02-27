@@ -3,17 +3,17 @@ import React from "react";
 function Search() {
     return (
       <div className="about">
-        <div class="container">
-          <div class="row align-items-center my-5">
-            <div class="col-lg-7">
+        <div className="container">
+          <div className="row align-items-center my-5">
+            <div className="col-lg-7">
               <form>
-                <div class="name">
-                <label for="name">Card Name</label><br />
+                <div className="name">
+                <label HTMLFor="name">Card Name</label><br />
                 <input type="text" id="name"/><br />
                 </div>
                 
                 <div class="card-type">
-                <label for="card-type">Card Type:</label><br/>
+                <label HTMLFor="card-type">Card Type:</label><br/>
                 <select name="card-type" id="card-type">
                     <option>Choose an Option</option>
                     <option value="type1">Type 1</option>
@@ -27,8 +27,8 @@ function Search() {
                 <input type="reset" value="Reset"/>
                 </form>
             </div>
-            <div class="col-lg-5">
-              <h1 class="font-weight-light">Card Search</h1>
+            <div className="col-lg-5">
+              <h1 className="font-weight-light">Card Search</h1>
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy text

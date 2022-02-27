@@ -10,14 +10,15 @@ import {
   Search,
   About,
   Contact,
+  Random,
 } from "./components";
-
 ReactDOM.render(
   <Router>
     <Navigation />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/random" element={<Random />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
     </Routes>
