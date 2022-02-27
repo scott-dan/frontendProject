@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { noSpecialCharacters, validEmail, validPassword } from './regex.jsx';
 
 let url = "https://api.magicthegathering.io/v1/";
 
@@ -14,6 +15,7 @@ class Search extends React.Component {
       inputValue: [],
       foundCharacter: false,
       count: 0,
+      badUserInput: false,
     };
     this.handleAddingDivs = this.handleAddingDivs.bind(this);
   }
@@ -23,6 +25,17 @@ class Search extends React.Component {
     this.setState({
       inputValue: val,
     });
+  }
+
+  validateUserInput(){
+    console.log(noSpecialCharacters.test(this.state.inputValue))
+    if(!noSpecialCharacters.test(this.state.inputValue)){
+      this.setState({badUserInput: true});
+      console.log("badUserInput:", this.state.badUserInput);
+    }
+    else{
+      this.setState({badUserInput: false}, this.getData());
+    }
   }
 
   getData() {
@@ -84,7 +97,7 @@ class Search extends React.Component {
           value={this.state.inputValue}
           onChange={(evt) => this.updateInputValue(evt)}
         ></input>
-        <button onClick={() => this.getData()}>Search</button>
+        <button onClick={() => this.validateUserInput()}>Search</button>
       </div>
     );
   }
@@ -107,6 +120,9 @@ class Search extends React.Component {
           </select>
           <br />
           {this.state.showSearchBar ? this.searchBar() : null}
+        </div>
+        <div>
+          {this.state.badUserInput && <p>Error: no special characters allowed in search. Please try again.</p>}
         </div>
       </div>
     );
