@@ -13,15 +13,13 @@ function CardsByDan() {
             <p>
               This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}
             </p>
-            <button onClick={GetCard}>Refresh</button>
+            <button onClick={GetCard}>Get Card</button>
           </div>
-        </div>
+          <div className="col-lg-7">
+            <div className="cardImage text-center" id="cardImage"></div>
       </div>
-      <div className="display text-center">
-        <section className="cardResult" id="cardResult">
-            <div className="cardImage" id="cardImage"></div>
-            <div className="cardText" id="cardText"></div>
-        </section>
+      <div className="cardText text-center" id="cardText"></div>
+        </div>
       </div>
     </div>
   );
@@ -55,13 +53,13 @@ function CardDisplay(data) {
     console.log(data);
     if(!data.cards[rand].hasOwnProperty('imageUrl')) {
         console.log("No image found");
-        imageContainer.innerHTML = '<p>No image found</p>'
-        textContainer.innerHTML = `<h1>${data.cards[rand].name}</h1></br>
-        <p>${data.cards[rand].text}</P></br>
-        <p>${data.cards[rand].rarity}</P></br>
-        <p>${data.cards[rand].setName}</P></br>
-        <p>${data.cards[rand].type}</P></br>
-        <p>${data.cards[rand].subtypes}</P>`;
+        imageContainer.innerHTML = `<h1>${data.cards[rand].name}</h1></br>
+          <p>No image found</p>`;
+        textContainer.innerHTML = `<p>${data.cards[rand].text}</P></br>
+          <p>${data.cards[rand].rarity}</P></br>
+          <p>${data.cards[rand].setName}</P></br>
+          <p>${data.cards[rand].type}</P></br>
+          <p>${data.cards[rand].subtypes}</P>`;
     } else {
       imageContainer.innerHTML = `<img src =${data.cards[rand].imageUrl} /></br>`
       textContainer.innerHTML = `<p>${data.cards[rand].name}</p></br>
