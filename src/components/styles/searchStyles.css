@@ -30,31 +30,32 @@ div.grid-item.item3{
 }
 
 div.grid-item.item4{
-  grid-column: span 3;
-  grid-row: span 2;
-}
-div.grid-item.item5{
 grid-column: span 3;
 }
 
-div.grid-item.item6{
+div.grid-item.item5{
   grid-column: span 3;
 }
 
-div.grid-item.item7{
+div.grid-item.item6{
   grid-column: span 1;
 }
 
-div.grid-item.item8{
+div.grid-item.item7{
   grid-column: span 2;
 }
 
+div.grid-item.item8{
+  grid-column: span 3;
+}
+
 div.grid-item.item9{
-  grid-column: span 2;
+  grid-column: span 5;
 }
 
 div.grid-item.item10{
   grid-column: span 5;
+  grid-row: span 2;
 }
 
 @media screen and (max-width:414px) {

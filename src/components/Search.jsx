@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/styles/searchStyles.css";
-import { noSpecialCharacters, noWhiteSpace, onlyWhiteSpace, validEmail, validPassword } from "./regex.jsx";
+import { noSpecialCharacters } from "./regex.jsx";
 
 let url = "https://api.magicthegathering.io/v1/";
 
@@ -27,32 +27,32 @@ function Card(props) {
           <p>{props.value.artist}</p>
         </div>
         <div class="grid-item item4">
-          <strong>Lore:&nbsp;</strong>
-          <p>{props.value.flavor}</p>
-        </div>
-        <div class="grid-item item5">
           <strong>Type:&nbsp;</strong>
           {props.value.originalType}
         </div>
-        <div class="grid-item item6">
+        <div class="grid-item item5">
           <strong>Rarity:&nbsp;</strong>
           {props.value.rarity}
         </div>
-        <div class="grid-item item7">
+        <div class="grid-item item6">
           <strong>Power:&nbsp;</strong>
           <p>{props.value.power}</p>
         </div>
-        <div class="grid-item item8">
+        <div class="grid-item item7">
           <strong>Toughness:&nbsp;</strong>
           <p>{props.value.toughness}</p>
         </div>
-        <div class="grid-item item9">
+        <div class="grid-item item8">
           <strong>Set:&nbsp;</strong>
           {props.value.setName}
         </div>
-        <div class="grid-item item10">
+        <div class="grid-item item9">
           <strong>Description:&nbsp;</strong>
           {props.value.originalText}
+        </div>
+        <div class="grid-item item10">
+          <strong>Lore:&nbsp;</strong>
+          <p>{props.value.flavor}</p>
         </div>
       </section>
     </div>
@@ -65,13 +65,14 @@ class Search extends React.Component {
     this.state = {
       searchCategory: "",
       showSearchBar: false,
-      character: [],
       inputValue: [],
+      searchString: "",
       foundCharacter: false,
       count: 0,
       badUserInput: false,
       noUserInput: false,
       apiCallError: false,
+      noSearchResultsFound: false,
       searchResults: [],
       rawCardData: [],
       newCardsToRender: false,
@@ -88,36 +89,59 @@ class Search extends React.Component {
   validateUserInput() {
     if (this.state.inputValue.length === 0) {
       console.log("no input detected.");
-      this.setState({ badUserInput: false, noUserInput: true });
-    } else if (onlyWhiteSpace.test(this.state.inputValue)) {
+      this.setState({
+        badUserInput: false,
+        noUserInput: true,
+        noSearchResultsFound: false,
+      });
+    } else if (this.state.inputValue.trim().length === 0) {
       console.log("only white space detected.");
-      this.setState({ badUserInput: false, noUserInput: true });
+      this.setState({
+        badUserInput: false,
+        noUserInput: true,
+        noSearchResultsFound: false,
+      });
     } else if (!noSpecialCharacters.test(this.state.inputValue)) {
-      this.setState({ badUserInput: true, noUserInput: false });
+      this.setState({
+        badUserInput: true,
+        noUserInput: false,
+        noSearchResultsFound: false,
+      });
       console.log("badUserInput:", this.state.badUserInput);
     } else {
       this.setState(
-        { badUserInput: false, noUserInput: false },
+        {
+          badUserInput: false,
+          noUserInput: false,
+          noSearchResultsFound: false,
+        },
         this.getData()
       );
     }
   }
 
   getData() {
-    let temp =
+    let fullSearchUrl =
       url +
       this.state.searchCategory +
       "?name=" +
-      encodeURI(this.state.inputValue.replace(/\s+/g,' ').trim());
+      encodeURI(this.state.inputValue.replace(/\s+/g, " ").trim());
     axios
-      .get(temp)
+      .get(fullSearchUrl)
       .then((response) => {
+        if (response.data.cards.length === 0) {
+          this.setState({
+            noSearchResultsFound: true,
+            searchString: this.state.inputValue,
+          });
+          return;
+        }
         this.setState({
-          characters: response.data,
           apiCallError: false,
+          noSearchResultsFound: false,
+          newCardsToRender: true,
+          rawCardData: response.data,
         });
-        console.log(this.state.characters);
-        this.setState({ newCardsToRender: true, rawCardData: response.data });
       })
       .catch((error) => this.setState({ apiCallError: true }));
   }
@@ -187,6 +211,12 @@ class Search extends React.Component {
           )}
           {this.state.apiCallError && (
             <p>Error: failed to retrieve card data. Please try again.</p>
+          )}
+          {this.state.noSearchResultsFound && (
+            <p>
+              No results found for "{this.state.searchString}". Please try
+              again.
+            </p>
           )}
         </div>
         <div class="d-inline-flex flex-wrap">
