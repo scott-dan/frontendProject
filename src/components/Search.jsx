@@ -9,8 +9,8 @@ let url = "https://api.magicthegathering.io/v1/";
 function Card(props) {
   return (
     <div>
-      <section class="grid-container">
-        <div class="grid-item item1">
+      <section className="grid-container">
+        <div className="grid-item item1">
           <img
             src={props.value.imageUrl}
             alt={`${props.value.name}`}
@@ -18,39 +18,39 @@ function Card(props) {
             width="200"
           ></img>
         </div>
-        <div class="grid-item item2">
+        <div className="grid-item item2">
           <strong>Name:&nbsp;</strong>
           <p>{props.value.name}</p>
         </div>
-        <div class="grid-item item3">
+        <div className="grid-item item3">
           <strong>Artist:&nbsp;</strong>
           <p>{props.value.artist}</p>
         </div>
-        <div class="grid-item item4">
+        <div className="grid-item item4">
           <strong>Type:&nbsp;</strong>
           {props.value.originalType}
         </div>
-        <div class="grid-item item5">
+        <div className="grid-item item5">
           <strong>Rarity:&nbsp;</strong>
           {props.value.rarity}
         </div>
-        <div class="grid-item item6">
+        <div className="grid-item item6">
           <strong>Power:&nbsp;</strong>
           <p>{props.value.power}</p>
         </div>
-        <div class="grid-item item7">
+        <div className="grid-item item7">
           <strong>Toughness:&nbsp;</strong>
           <p>{props.value.toughness}</p>
         </div>
-        <div class="grid-item item8">
+        <div className="grid-item item8">
           <strong>Set:&nbsp;</strong>
           {props.value.setName}
         </div>
-        <div class="grid-item item9">
+        <div className="grid-item item9">
           <strong>Description:&nbsp;</strong>
           {props.value.originalText}
         </div>
-        <div class="grid-item item10">
+        <div className="grid-item item10">
           <strong>Lore:&nbsp;</strong>
           <p>{props.value.flavor}</p>
         </div>
@@ -153,7 +153,7 @@ class Search extends React.Component {
     for (let i = 0; i < this.state.rawCardData.cards.length; i++) {
       //if (this.state.rawCardData.cards[i].imageUrl !== null) {
       uiItems.push(
-        <div class="p-3">
+        <div className="p-3">
           <Card value={this.state.rawCardData.cards[i]}></Card>
           <br />
           <br />
@@ -219,7 +219,7 @@ class Search extends React.Component {
             </p>
           )}
         </div>
-        <div class="d-inline-flex flex-wrap">
+        <div className="d-inline-flex flex-wrap">
           {this.state.newCardsToRender && this.renderDivs()}
         </div>
       </div>
