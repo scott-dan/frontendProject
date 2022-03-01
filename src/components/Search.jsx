@@ -195,11 +195,12 @@ class Search extends React.Component {
               Select a search category
             </option>
             <option>name</option>
-            <option value="setName">set</option>
+            <option>artist</option>
             <option>type</option>
-            <option>subtypes</option>
-            <option>supertypes</option>
-            <option>format</option>
+            <option>rarity</option>
+            <option>power</option>
+            <option>toughness</option>
+            <option value="text">description</option>
           </select>
           <br />
           {this.state.showSearchBar ? this.searchBar() : null}
