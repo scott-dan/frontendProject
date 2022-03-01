@@ -69,7 +69,7 @@ function CardDisplay(data) {
           <p>${card.type}</P></br>
           <p>${card.subtypes}</P>`;
     } else {
-      imageContainer.innerHTML = `<img src =${card.imageUrl} /></br>`
+      imageContainer.innerHTML = `<img src ="${card.imageUrl}" alt="${card.name}"/></br>`
       textContainer.innerHTML = `<p>${card.name}</p></br>
       <p>Rarity: ${card.rarity}</p></br>
       <p>Card set: ${card.setName}</P></br>`;
