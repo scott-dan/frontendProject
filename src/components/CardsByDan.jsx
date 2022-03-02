@@ -98,7 +98,7 @@ class CardsByDan extends React.Component {
     );
   }
 
-  displayCards() {
+  displayCards() { //need to consider user input for number of cards to display
     //console.log(this.state.cardData.cards)
     let items = [];
     let length = this.state.cardData.cards.length;
@@ -109,7 +109,26 @@ class CardsByDan extends React.Component {
     }
     //console.log('items:');
     //console.log(`items: ${items}`);
+    items = this.FisherYatesShuffle(items);
     return items;
+  }
+
+  FisherYatesShuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
   }
 
   render() {
