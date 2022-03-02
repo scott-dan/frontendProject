@@ -98,14 +98,16 @@ class CardsByDan extends React.Component {
   }
 
   displayCards() {
-    console.log('line 101');
     //console.log(this.state.cardData.cards)
     let items = [];
-    let length = parseInt(this.state.cardData.cards.count);
+    let length = this.state.cardData.cards.length;
+    //console.log(`card count: ${length}`);
     for (let i = 0; i < length; i++) {
+      //console.log(this.state.cardData.cards[i]);
       items.push(<Card value={this.state.cardData.cards[i]}></Card>);
     }
-    console.log(items);
+    //console.log('items:');
+    //console.log(`items: ${items}`);
     return items;
   }
 
