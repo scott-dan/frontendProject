@@ -247,7 +247,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="bg">
         <h1>Searchpage</h1>
         <div>
           <select onChange={(event) => this.handleDDLChange(event)}>
@@ -286,7 +286,7 @@ class Search extends React.Component {
             </p>
           )}
         </div>
-        <div className="d-inline-flex flex-wrap">
+        <div className="d-inline-flex flex-wrap justify-content-evenly">
           {this.state.newSearchResultsToRender && this.renderDivs()}
         </div>
       </div>

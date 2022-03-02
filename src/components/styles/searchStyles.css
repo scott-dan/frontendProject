@@ -1,19 +1,30 @@
+.bg{
+  /*make div scrollable*/
+  width: 100%;
+  height: 768px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+}
 
 .grid-container{
   display: grid;
-  gap: 1px;
+  gap: 2px;
   grid-template-columns: repeat(5, 100px);
   grid-template-rows: 50px 50px 50px 50px 50px;
   border: 2px solid black;
   padding: 5px;
   margin: 5px;
+  background-image: url(../../images/slate.jpg);
+  background-repeat: repeat;
 }
 
 .grid-item{
-  border: 1px solid black;
-  color: black;
+  border: 5px solid black;
+  color: white;
   font-size: medium;
-  display: flex; 
+  display: flex;
 }
 
 div.grid-item.item1{
