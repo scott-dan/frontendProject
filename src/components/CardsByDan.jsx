@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../components/styles/searchStyles.css";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
 
@@ -127,7 +128,7 @@ class CardsByDan extends React.Component {
             He's painted dozens of Hearthstone cards as well.
           </p>
         </div>
-        <div className="d-inline-flex flew-wrap">
+        <div className="d-inline-flex flex-wrap">
           {this.state.cardsToDisplay && this.displayCards()}
         </div>
       </div>
