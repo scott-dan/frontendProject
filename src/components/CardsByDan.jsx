@@ -1,6 +1,5 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../components/styles/searchStyles.css";
+import { Slider } from "@mui/material";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
 
@@ -66,6 +65,8 @@ class CardsByDan extends React.Component {
       apiCallError: false,
       cardData: [],
       cardsToDisplay: false,
+      displayCount: 0,
+      refreshRate: 0,
     };
   }
 
@@ -93,7 +94,7 @@ class CardsByDan extends React.Component {
   newCardsButton() {
     return (
       <div>
-        <button onClick={() => this.getCards()}>Get New Cards!</button>
+        <button onClick={() => this.getCards()}>Shuffle Cards!</button>
       </div>
     );
   }
@@ -131,11 +132,28 @@ class CardsByDan extends React.Component {
     return array;
   }
 
+  slider() {
+    return (
+      <div>
+        <Slider
+          aria-label="displayCount"
+          defaultValue={30}
+          valueLabelDisplay="auto"
+          step={1}
+          marks={true}
+          min={1}
+          max={5}
+        />
+      {this.newCardsButton()}  
+      </div> 
+    )
+  }
+
   render() {
     return (
       <div>
         <h1>Cards By Dan</h1>
-        {this.newCardsButton()}
+        {this.slider()}
         <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}</p>
         <div>
           <img src="https://media.magic.wizards.com/image_legacy_migration/sideboard/images/usnat07/scott.jpg"
