@@ -8,53 +8,57 @@ let url = "https://api.magicthegathering.io/v1/";
 
 function Card(props) {
   return (
-    <div>
-      <section class="grid-container">
-        <div class="grid-item item1">
-          <img
-            src={props.value.imageUrl}
-            alt={`${props.value.name}`}
-            height="300"
-            width="200"
-          ></img>
-        </div>
-        <div class="grid-item item2">
-          <strong>Name:&nbsp;</strong>
-          <p>{props.value.name}</p>
-        </div>
-        <div class="grid-item item3">
-          <strong>Artist:&nbsp;</strong>
-          <p>{props.value.artist}</p>
-        </div>
-        <div class="grid-item item4">
-          <strong>Type:&nbsp;</strong>
-          {props.value.originalType}
-        </div>
-        <div class="grid-item item5">
-          <strong>Rarity:&nbsp;</strong>
-          {props.value.rarity}
-        </div>
-        <div class="grid-item item6">
-          <strong>Power:&nbsp;</strong>
-          <p>{props.value.power}</p>
-        </div>
-        <div class="grid-item item7">
-          <strong>Toughness:&nbsp;</strong>
-          <p>{props.value.toughness}</p>
-        </div>
-        <div class="grid-item item8">
-          <strong>Set:&nbsp;</strong>
-          {props.value.setName}
-        </div>
-        <div class="grid-item item9">
-          <strong>Description:&nbsp;</strong>
-          {props.value.originalText}
-        </div>
-        <div class="grid-item item10">
-          <strong>Lore:&nbsp;</strong>
-          <p>{props.value.flavor}</p>
-        </div>
-      </section>
+    <div className="p-3">
+      <div>
+        <section className="grid-container">
+          <div className="grid-item item1">
+            <img
+              src={props.value.imageUrl}
+              alt={`${props.value.name}`}
+              height="300"
+              width="200"
+            ></img>
+          </div>
+          <div className="grid-item item2">
+            <strong>Name:&nbsp;</strong>
+            <p>{props.value.name}</p>
+          </div>
+          <div className="grid-item item3">
+            <strong>Artist:&nbsp;</strong>
+            <p>{props.value.artist}</p>
+          </div>
+          <div className="grid-item item4">
+            <strong>Type:&nbsp;</strong>
+            {props.value.originalType}
+          </div>
+          <div className="grid-item item5">
+            <strong>Rarity:&nbsp;</strong>
+            {props.value.rarity}
+          </div>
+          <div className="grid-item item6">
+            <strong>Power:&nbsp;</strong>
+            <p>{props.value.power}</p>
+          </div>
+          <div className="grid-item item7">
+            <strong>Toughness:&nbsp;</strong>
+            <p>{props.value.toughness}</p>
+          </div>
+          <div className="grid-item item8">
+            <strong>Set:&nbsp;</strong>
+            {props.value.setName}
+          </div>
+          <div className="grid-item item9">
+            <strong>Description:&nbsp;</strong>
+            {props.value.originalText}
+          </div>
+          <div className="grid-item item10">
+            <strong>Lore:&nbsp;</strong>
+            <p>{props.value.flavor}</p>
+          </div>
+        </section>
+      </div>
+      <br />
+      <br />
     </div>
   );
 }
@@ -65,6 +69,8 @@ class Search extends React.Component {
     this.state = {
       searchCategory: "",
       showSearchBar: false,
+      showNumericRangeInput: false,
+      showRaritySelectorDDL: false,
       inputValue: [],
       searchString: "",
       foundCharacter: false,
@@ -74,8 +80,8 @@ class Search extends React.Component {
       apiCallError: false,
       noSearchResultsFound: false,
       searchResults: [],
-      rawCardData: [],
-      newCardsToRender: false,
+      rawSearchResponse: [],
+      newSearchResultsToRender: false,
     };
   }
 
@@ -109,96 +115,157 @@ class Search extends React.Component {
       });
       console.log("badUserInput:", this.state.badUserInput);
     } else {
-      this.setState(
-        {
-          badUserInput: false,
-          noUserInput: false,
-          noSearchResultsFound: false,
-        },
-        this.getData()
-      );
+      this.setState({
+        badUserInput: false,
+        noUserInput: false,
+        noSearchResultsFound: false,
+      });
+      this.getData();
     }
+  }
+
+  processSearch(response) {
+    if (response.headers.count === "0") {
+      this.setState({
+        noSearchResultsFound: true,
+        searchString: this.state.inputValue,
+      });
+      return;
+    }
+    this.setState({
+      apiCallError: false,
+      noSearchResultsFound: false,
+      newSearchResultsToRender: true,
+      rawSearchResponse: response,
+    });
   }
 
   getData() {
     let fullSearchUrl =
       url +
+      "cards" +
+      "?" +
       this.state.searchCategory +
-      "?name=" +
+      "=" +
       encodeURI(this.state.inputValue.replace(/\s+/g, " ").trim());
     axios
       .get(fullSearchUrl)
       .then((response) => {
-        if (response.data.cards.length === 0) {
-          this.setState({
-            noSearchResultsFound: true,
-            searchString: this.state.inputValue,
-          });
-          return;
-        }
-        this.setState({
-          apiCallError: false,
-          noSearchResultsFound: false,
-          newCardsToRender: true,
-          rawCardData: response.data,
-        });
+        this.processSearch(response);
       })
       .catch((error) => this.setState({ apiCallError: true }));
   }
 
   renderDivs() {
-    let temp = this.state.rawCardData;
-    console.log("raw card data: ", this.state.rawCardData.cards[0].imageUrl);
     let uiItems = [];
-    for (let i = 0; i < this.state.rawCardData.cards.length; i++) {
-      //if (this.state.rawCardData.cards[i].imageUrl !== null) {
+    let length = parseInt(this.state.rawSearchResponse.headers.count);
+    for (let i = 0; i < length; i++) {
       uiItems.push(
-        <div class="p-3">
-          <Card value={this.state.rawCardData.cards[i]}></Card>
-          <br />
-          <br />
-        </div>
+        <Card value={this.state.rawSearchResponse.data.cards[i]}></Card>
       );
     }
-    //}
     return uiItems;
   }
 
   handleDDLChange(event) {
-    this.setState({ searchCategory: event.target.value, showSearchBar: true });
+    if (event.target.value === "toughness" || event.target.value === "power") {
+      this.setState({
+        showSearchBar: false,
+        showRaritySelectorDDL: false,
+        showNumericRangeInput: true,
+      });
+    } else if (event.target.value === "rarity") {
+      this.setState({
+        showSearchBar: false,
+        showNumericRangeInput: false,
+        showRaritySelectorDDL: true,
+      });
+    } else {
+      this.setState({
+        showSearchBar: true,
+        showNumericRangeInput: false,
+        showRaritySelectorDDL: false,
+      });
+    }
+    this.setState({ searchCategory: event.target.value });
+  }
+
+  searchButton() {
+    return (
+      <div>
+        <button onClick={() => this.validateUserInput()}>Search</button>
+      </div>
+    );
   }
 
   searchBar() {
     return (
       <div>
+        <br />
         <input
           type="text"
           value={this.state.inputValue}
           onChange={(evt) => this.updateInputValue(evt)}
         ></input>
-        <button onClick={() => this.validateUserInput()}>Search</button>
+        {this.searchButton()}
+      </div>
+    );
+  }
+
+  numericRangeInput() {
+    return (
+      <div>
+        <br />
+        <label for="numericRangeInput">Range: 0-99</label>
+        <br />
+        <input
+          type="number"
+          id="numericRangeInput"
+          min="0"
+          max="99"
+          step="1"
+          onChange={(evt) => this.updateInputValue(evt)}
+        ></input>
+        {this.searchButton()}
+      </div>
+    );
+  }
+
+  raritySelectorDDL() {
+    return (
+      <div>
+        <br />
+        <select onChange={(evt) => this.updateInputValue(evt)}>
+          <option>common</option>
+          <option>uncommon</option>
+          <option>rare</option>
+        </select>
+        {this.searchButton()}
       </div>
     );
   }
 
   render() {
     return (
-      <div>
+      <div class="bg">
         <h1>Searchpage</h1>
         <div>
           <select onChange={(event) => this.handleDDLChange(event)}>
             <option value="none" selected disabled hidden>
               Select a search category
             </option>
-            <option>cards</option>
-            <option>sets</option>
-            <option>types</option>
-            <option>subtypes</option>
-            <option>supertypes</option>
-            <option>formats</option>
+            <option>name</option>
+            <option>artist</option>
+            <option>type</option>
+            <option>rarity</option>
+            <option>power</option>
+            <option>toughness</option>
+            <option value="text">description</option>
           </select>
           <br />
+          {this.state.showNumericRangeInput ? this.numericRangeInput() : null}
           {this.state.showSearchBar ? this.searchBar() : null}
+          {this.state.showRaritySelectorDDL ? this.raritySelectorDDL() : null}
         </div>
         <div>
           {this.state.badUserInput && (
@@ -207,7 +274,7 @@ class Search extends React.Component {
             </p>
           )}
           {this.state.noUserInput && (
-            <p>Please enter keywords before searching.</p>
+            <p>Please enter parameter before searching.</p>
           )}
           {this.state.apiCallError && (
             <p>Error: failed to retrieve card data. Please try again.</p>
@@ -219,8 +286,8 @@ class Search extends React.Component {
             </p>
           )}
         </div>
-        <div class="d-inline-flex flex-wrap">
-          {this.state.newCardsToRender && this.renderDivs()}
+        <div className="d-inline-flex flex-wrap justify-content-evenly">
+          {this.state.newSearchResultsToRender && this.renderDivs()}
         </div>
       </div>
     );
