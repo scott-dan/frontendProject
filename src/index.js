@@ -12,6 +12,7 @@ import {
   Contact,
   Random,
   CardsByDan,
+  Statistics,
 } from "./components";
 ReactDOM.render(
   <Router>
@@ -23,6 +24,7 @@ ReactDOM.render(
       <Route path="/cardsByDan" element={<CardsByDan />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/statistics" element={<Statistics />} />
     </Routes>
     <Footer />
   </Router>,
