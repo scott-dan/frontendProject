@@ -1,23 +1,9 @@
-/*.randomResult{
-  text-align: center;
-  border-radius: 25px;
-  width: 70%;
-  border: 15px solid black;
-  padding: 50px;
-  margin-left: auto;
-  margin-right: auto;
-  background: rgba(76, 175, 80, 0.3);
-}*/
 .result{
   background: rgba(61, 73, 143, 0.3);
 }
 .name{
   font-weight: bold;
 }
-/*#select-box{
-  border-radius: 25px;
-  border: 1px solid black;
-}*/
 .button{
   border-radius: 15px;
   width: 44%;
@@ -53,6 +39,7 @@ transform: scale(1.15);
 }
 
 .grid-container{
+  border-radius: 15px;
   display: grid;
   gap: 2px;
   grid-template-columns: repeat(5, 110px);

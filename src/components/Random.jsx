@@ -1,8 +1,6 @@
 import React from "react";
 import "../components/styles/randomStyles.css";
-//import Card from "mtgsdk";
 let url = "https://api.magicthegathering.io/v1/cards";
-//const mtg = require('mtgsdk')
 
 function Random() {
   return (
@@ -63,9 +61,6 @@ function Random() {
  * to then append to the page.
  * Uses only one API call.
  **/
-/**
- *
- */
 function rnd() {
   let rand = Math.floor(Math.random() * 4980);
   let serchUrl = url + "/" + rand;
@@ -88,13 +83,8 @@ function rnd() {
         display(data.cards[randSelected]);
       });
   } else {
-    /* // For console testing to view card Json. Unnecessary Query otherwise.
-  fetch(serchUrl)
-    .then((response) => response.json())
-    .then((data) => console.log(data.card.name));
-*/
-
-    fetch(serchUrl) // More in-depth then needed but searches through each card.
+    // More in-depth then needed but searches through each card.
+    fetch(serchUrl) 
       .then((response) => response.json())
       .then((data) => {
         //Ensures it's a valid card.
@@ -113,7 +103,6 @@ function rnd() {
  * contents of the passed in card
  * to the page section while accounting
  * for undefined input.
- * @param {*} card
  */
 function display(card) {
   let page = document.getElementById("randomResult");
