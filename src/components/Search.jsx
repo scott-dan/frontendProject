@@ -17,6 +17,7 @@ function Card(props) {
               alt={`${props.value.name}`}
               height="300"
               width="200"
+              className="img-expand"
             ></img>
           </div>
           <div className="grid-item item2">
