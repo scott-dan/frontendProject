@@ -1,3 +1,16 @@
+.img-expand:hover{
+  color: #424242; 
+-webkit-transition: all .3s ease-in;
+-moz-transition: all .3s ease-in;
+-ms-transition: all .3s ease-in;
+-o-transition: all .3s ease-in;
+transition: all .3s ease-in;
+opacity: 1;
+transform: scale(1.15);
+-ms-transform: scale(1.15); /* IE 9 */
+-webkit-transform: scale(2.15); /* Safari and Chrome */
+}
+
 .bg{
   /*make div scrollable*/
   width: 100%;
@@ -11,7 +24,7 @@
 .grid-container{
   display: grid;
   gap: 2px;
-  grid-template-columns: repeat(5, 100px);
+  grid-template-columns: repeat(5, 110px);
   grid-template-rows: 50px 50px 50px 50px 50px;
   border: 2px solid black;
   padding: 5px;
@@ -21,7 +34,10 @@
 }
 
 .grid-item{
-  border: 5px solid black;
+  border: 10px solid transparent;
+  border-image-source: url(../../images/rock.jpg);
+  border-image-repeat:round;
+  border-image-slice: 30;
   color: white;
   font-size: medium;
   display: flex;
