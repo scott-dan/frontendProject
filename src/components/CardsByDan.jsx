@@ -65,7 +65,7 @@ class CardsByDan extends React.Component {
       apiCallError: false,
       cardData: [],
       cardsToDisplay: false,
-      displayCount: 0,
+      displayCount: 3,
       refreshRate: 0,
     };
   }
@@ -94,7 +94,7 @@ class CardsByDan extends React.Component {
   newCardsButton() {
     return (
       <div>
-        <button onClick={() => this.getCards()}>Shuffle Cards!</button>
+        <button onClick={() => this.getCards()}>Get Cards!</button>
       </div>
     );
   }
@@ -102,15 +102,23 @@ class CardsByDan extends React.Component {
   displayCards() { //need to consider user input for number of cards to display
     //console.log(this.state.cardData.cards)
     let items = [];
-    let length = this.state.cardData.cards.length;
+    let cards = this.state.cardData.cards;
+    console.log("line 106");
+    console.log(cards);
+    cards = this.FisherYatesShuffle(this.state.cardData.cards);
+    //this.state.cardData.cards.setState(this.FisherYatesShuffle(this.state.cardData.cards))
+    //let length = this.state.cardData.cards.length;
     //console.log(`card count: ${length}`);
-    for (let i = 0; i < length; i++) {
+    //for (let i = 0; i < length; i++) {
+      console.log(this.state.displayCount);
+      for (let i = 0; i < this.state.displayCount; i++) {
       //console.log(this.state.cardData.cards[i]);
-      items.push(<Card value={this.state.cardData.cards[i]}></Card>);
+      //items.push(<Card value={this.state.cardData.cards[i]}></Card>);
+      items.push(<Card value={cards[i]}></Card>);
     }
-    //console.log('items:');
+    console.log('items:');
     //console.log(`items: ${items}`);
-    items = this.FisherYatesShuffle(items);
+    //items = this.FisherYatesShuffle(items);
     return items;
   }
 
@@ -153,7 +161,7 @@ class CardsByDan extends React.Component {
     return (
       <div>
         <br />
-        <label for="displayCount">Range: 1-100</label>
+        <label htmlFor="displayCount">Number of Cards to Display (1-100):</label>
         <br />
         <input
           type="number"
@@ -161,7 +169,7 @@ class CardsByDan extends React.Component {
           min="1"
           max="100"
           step="1"
-          onChange={(evt) => this.updateInputValue(evt)}
+          onChange={(evt) => this.updateDisplayCount(evt)}
         ></input>
         {this.newCardsButton()}  
       </div>
@@ -177,7 +185,7 @@ class CardsByDan extends React.Component {
     return (
       <div>
         <h1>Cards By Dan</h1>
-        {this.slider()}
+        {this.displayCounter()}
         <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}</p>
         <div>
           <img src="https://media.magic.wizards.com/image_legacy_migration/sideboard/images/usnat07/scott.jpg"
