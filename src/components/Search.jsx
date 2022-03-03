@@ -63,13 +63,14 @@ function Card(props) {
   );
 }
 
-
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchCategory: "",
       showSearchBar: false,
+      showNumericRangeInput: false,
+      showRaritySelectorDDL: false,
       inputValue: [],
       searchString: "",
       foundCharacter: false,
@@ -114,14 +115,12 @@ class Search extends React.Component {
       });
       console.log("badUserInput:", this.state.badUserInput);
     } else {
-      this.setState(
-        {
-          badUserInput: false,
-          noUserInput: false,
-          noSearchResultsFound: false,
-        },
-        this.getData()
-      );
+      this.setState({
+        badUserInput: false,
+        noUserInput: false,
+        noSearchResultsFound: false,
+      });
+      this.getData();
     }
   }
 
@@ -169,25 +168,86 @@ class Search extends React.Component {
   }
 
   handleDDLChange(event) {
-    this.setState({ searchCategory: event.target.value, showSearchBar: true });
+    if (event.target.value === "toughness" || event.target.value === "power") {
+      this.setState({
+        showSearchBar: false,
+        showRaritySelectorDDL: false,
+        showNumericRangeInput: true,
+      });
+    } else if (event.target.value === "rarity") {
+      this.setState({
+        showSearchBar: false,
+        showNumericRangeInput: false,
+        showRaritySelectorDDL: true,
+      });
+    } else {
+      this.setState({
+        showSearchBar: true,
+        showNumericRangeInput: false,
+        showRaritySelectorDDL: false,
+      });
+    }
+    this.setState({ searchCategory: event.target.value });
+  }
+
+  searchButton() {
+    return (
+      <div>
+        <button onClick={() => this.validateUserInput()}>Search</button>
+      </div>
+    );
   }
 
   searchBar() {
     return (
       <div>
+        <br />
         <input
           type="text"
           value={this.state.inputValue}
           onChange={(evt) => this.updateInputValue(evt)}
         ></input>
-        <button onClick={() => this.validateUserInput()}>Search</button>
+        {this.searchButton()}
+      </div>
+    );
+  }
+
+  numericRangeInput() {
+    return (
+      <div>
+        <br />
+        <label for="numericRangeInput">Range: 0-99</label>
+        <br />
+        <input
+          type="number"
+          id="numericRangeInput"
+          min="0"
+          max="99"
+          step="1"
+          onChange={(evt) => this.updateInputValue(evt)}
+        ></input>
+        {this.searchButton()}
+      </div>
+    );
+  }
+
+  raritySelectorDDL() {
+    return (
+      <div>
+        <br />
+        <select onChange={(evt) => this.updateInputValue(evt)}>
+          <option>common</option>
+          <option>uncommon</option>
+          <option>rare</option>
+        </select>
+        {this.searchButton()}
       </div>
     );
   }
 
   render() {
     return (
-      <div>
+      <div class="bg">
         <h1>Searchpage</h1>
         <div>
           <select onChange={(event) => this.handleDDLChange(event)}>
@@ -203,7 +263,9 @@ class Search extends React.Component {
             <option value="text">description</option>
           </select>
           <br />
+          {this.state.showNumericRangeInput ? this.numericRangeInput() : null}
           {this.state.showSearchBar ? this.searchBar() : null}
+          {this.state.showRaritySelectorDDL ? this.raritySelectorDDL() : null}
         </div>
         <div>
           {this.state.badUserInput && (
@@ -212,7 +274,7 @@ class Search extends React.Component {
             </p>
           )}
           {this.state.noUserInput && (
-            <p>Please enter keywords before searching.</p>
+            <p>Please enter parameter before searching.</p>
           )}
           {this.state.apiCallError && (
             <p>Error: failed to retrieve card data. Please try again.</p>
@@ -224,7 +286,7 @@ class Search extends React.Component {
             </p>
           )}
         </div>
-        <div className="d-inline-flex flex-wrap">
+        <div className="d-inline-flex flex-wrap justify-content-evenly">
           {this.state.newSearchResultsToRender && this.renderDivs()}
         </div>
       </div>
