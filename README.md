@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+![Magic the Gathering](\src\images\mtgLogo.png)
+# 410P/510 Front End Web Development Project 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a group web development project for the TOP 071/092 winter 2022 course at PSU.
+The project uses a magic the gathering API to provide a variety of statistics and search functionality
+when browsering a wide collection of cards. This is acheived by calling the API then processing the JSON data
+retrived to correlate to the users desired input.
+This project was also built using ReactJS to create a scalable and simple site with streamlined development.
 
 ## Available Scripts
 
