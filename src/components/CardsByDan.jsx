@@ -1,5 +1,5 @@
 import React from "react";
-import { Slider } from "@mui/material";
+//import { Slider } from "@mui/material";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
 
@@ -132,7 +132,7 @@ class CardsByDan extends React.Component {
     return array;
   }
 
-  slider() {
+/*   slider() {
     return (
       <div>
         <Slider
@@ -144,9 +144,33 @@ class CardsByDan extends React.Component {
           min={1}
           max={5}
         />
-      {this.newCardsButton()}  
+        {this.newCardsButton()}
       </div> 
     )
+  } */
+
+  displayCounter() {
+    return (
+      <div>
+        <br />
+        <label for="displayCount">Range: 1-100</label>
+        <br />
+        <input
+          type="number"
+          id="displayCount"
+          min="1"
+          max="100"
+          step="1"
+          onChange={(evt) => this.updateInputValue(evt)}
+        ></input>
+        {this.newCardsButton()}  
+      </div>
+    );
+  }
+
+  updateDisplayCount(evt) {
+    const count = evt.target.value;
+    this.setState({displayCount: count,});
   }
 
   render() {
