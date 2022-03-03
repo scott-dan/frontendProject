@@ -57,6 +57,9 @@ function Random() {
  * to then append to the page.
  * Uses only one API call.
  **/
+/**
+ * 
+ */
 function rnd() {
   let rand = Math.floor(Math.random() * 4980);
   let serchUrl = url + "/" + rand;
@@ -111,6 +114,17 @@ function display(card) {
   let result = document.createElement("div");
   result.classList.add("result");
 
+  let image = document.createElement("img");
+  image.classList.add("image");
+  if (card.imageUrl === undefined) {
+    image.src =
+      "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
+    image.alt= "404-No card found"
+  } else {
+    image.src = card.imageUrl;
+    image.alt = card.name;
+  }
+
   let name = document.createElement("p");
   name.classList.add("name");
   if (card.name === undefined) {
@@ -119,14 +133,6 @@ function display(card) {
     name.innerHTML = card.name;
   }
 
-  let image = document.createElement("img");
-  image.classList.add("image");
-  if (card.imageUrl === undefined) {
-    image.src =
-      "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
-  } else {
-    image.src = card.imageUrl;
-  }
 
   let desc = document.createElement("p");
   desc.classList.add("name");
