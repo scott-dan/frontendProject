@@ -62,6 +62,7 @@ function Random() {
  * Uses only one API call.
  **/
 function rnd() {
+  //Generating two random values for database-wide & query-wide searches.
   let rand = Math.floor(Math.random() * 4980);
   let serchUrl = url + "/" + rand;
   let randSelected = Math.floor(Math.random() * 100);
@@ -80,6 +81,7 @@ function rnd() {
     fetch(url + "/?types=" + selectedType.value)
       .then((response) => response.json())
       .then((data) => {
+        //Obtains 1 of 4980 cards by directly interfacing with the JSON
         display(data.cards[randSelected]);
       });
   } else {
@@ -100,15 +102,17 @@ function rnd() {
 }
 /**
  * Appends a div created with the formatted
- * contents of the passed in card
- * to the page section while accounting
- * for undefined input.
+ * grid contents of the passed in card
+ * to the grid container section while accounting
+ * for undefined or N/A input and including 
+ * placeholders when applicable.
  */
 function display(card) {
   let page = document.getElementById("randomResult");
   let result = document.createElement("div");
   result.classList.add("result");
 
+  //Starts the creation of the grid elements
   let image = document.createElement("img");
   let grid1 = document.createElement("div");
   image.classList.add("image-expand");
@@ -224,6 +228,7 @@ function display(card) {
   grid10.classList.add("grid-item", "item10");
   grid10.appendChild(art);
 
+  //Append the children to the gird container in the correct order.
   page.appendChild(grid1);
   page.appendChild(grid2);
   page.appendChild(grid3);

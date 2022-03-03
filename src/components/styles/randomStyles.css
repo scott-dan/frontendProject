@@ -4,26 +4,20 @@
 .name{
   font-weight: bold;
 }
+/*Rounding corners for both the button and Drop-down*/
+#select-box{
+  border-radius: 25px;
+  border: 1px solid black;
+}
 .button{
   border-radius: 15px;
   width: 44%;
-}
-.img-expand:hover{
-  color: #424242; 
--webkit-transition: all .3s ease-in;
--moz-transition: all .3s ease-in;
--ms-transition: all .3s ease-in;
--o-transition: all .3s ease-in;
-transition: all .3s ease-in;
-opacity: 1;
-transform: scale(1.15);
--ms-transform: scale(1.15); /* IE 9 */
--webkit-transform: scale(2.15); /* Safari and Chrome */
 }
 .template{
   display: flex;
   align-items: center;
 }
+/*Ensures card is centered*/
 .holder{
   margin-left: auto;
   margin-right: auto;
@@ -38,6 +32,7 @@ transform: scale(1.15);
   padding: 20px;
 }
 
+/*Initiating our chosen background image*/
 .grid-container{
   border-radius: 15px;
   display: grid;
@@ -61,6 +56,7 @@ transform: scale(1.15);
   display: flex;
 }
 
+/*Adjusting span for each grid item based on what info they will hold*/
 div.grid-item.item1{
   grid-column: span 2;
   grid-row: span 6;
