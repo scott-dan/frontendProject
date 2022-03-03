@@ -1,4 +1,4 @@
-![Magic the Gathering](\src\images\mtgLogo.png)
+![Magic the Gathering](/src/images/mtgLogo.png)
 # 410P/510 Front End Web Development Project 
 
 This is a group web development project for the TOP 071/092 winter 2022 course at PSU.
