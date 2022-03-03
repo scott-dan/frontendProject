@@ -34,7 +34,14 @@ transform: scale(1.15);
 -ms-transform: scale(1.15); /* IE 9 */
 -webkit-transform: scale(2.15); /* Safari and Chrome */
 }
-
+.template{
+  display: flex;
+  align-items: center;
+}
+.holder{
+  margin-left: auto;
+  margin-right: auto;
+}
 .bg{
   /*make div scrollable*/
   width: 100%;

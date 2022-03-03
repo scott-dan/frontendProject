@@ -20,7 +20,7 @@ function Random() {
               <div className="card-type">
                 <label htmlFor="card-type">Card Type:</label>
                 <br />
-                <select name="card-type" id="select-box" >
+                <select name="card-type" id="select-box">
                   <option value="All">All Types</option>
                   <option value="Creature">Creatures</option>
                   <option value="Land">Lands</option>
@@ -30,7 +30,9 @@ function Random() {
                 </select>
                 <br />
               </div>
-              <button onClick={rnd} className="button">Generate</button>
+              <button onClick={rnd} className="button">
+                Generate
+              </button>
             </div>
           </div>
           <div className="col-lg-5">
@@ -44,8 +46,12 @@ function Random() {
           </div>
         </div>
       </div>
-      <div className="p-3">
-        <section className="grid-container" id="randomResult"></section>
+      <div className="template">
+        <div className="p-3 holder">
+          <div>
+            <section className="grid-container" id="randomResult"></section>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -58,7 +64,7 @@ function Random() {
  * Uses only one API call.
  **/
 /**
- * 
+ *
  */
 function rnd() {
   let rand = Math.floor(Math.random() * 4980);
@@ -105,9 +111,9 @@ function rnd() {
 /**
  * Appends a div created with the formatted
  * contents of the passed in card
- * to the page section while accounting 
+ * to the page section while accounting
  * for undefined input.
- * @param {*} card 
+ * @param {*} card
  */
 function display(card) {
   let page = document.getElementById("randomResult");
@@ -122,7 +128,7 @@ function display(card) {
   if (card.imageUrl === undefined) {
     image.src =
       "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
-    image.alt= "404-No card found"
+    image.alt = "404-No card found";
   } else {
     image.src = card.imageUrl;
     image.alt = card.name;
@@ -141,17 +147,16 @@ function display(card) {
   grid2.classList.add("grid-item", "item2");
   grid2.appendChild(name);
 
-
   let desc = document.createElement("p");
-  let grid3 = document.createElement("div");
+  let grid9 = document.createElement("div");
   desc.classList.add("name");
   if (card.text === undefined) {
     desc.innerHTML = "No description.";
   } else {
     desc.innerHTML = card.text;
   }
-  grid3.classList.add("grid-item", "item3");
-  grid3.appendChild(desc);
+  grid9.classList.add("grid-item", "item9");
+  grid9.appendChild(desc);
 
   let color = document.createElement("p");
   let grid4 = document.createElement("div");
@@ -209,15 +214,15 @@ function display(card) {
   grid8.appendChild(type);
 
   let set = document.createElement("p");
-  let grid9 = document.createElement("div");
+  let grid3 = document.createElement("div");
   set.classList.add("name");
   if (card.setName === undefined) {
     set.innerHTML = "Set: N/A";
   } else {
     set.innerHTML = "Set: " + card.setName;
   }
-  grid9.classList.add("grid-item", "item9");
-  grid9.appendChild(set);
+  grid3.classList.add("grid-item", "item3");
+  grid3.appendChild(set);
 
   let art = document.createElement("p");
   let grid10 = document.createElement("div");
@@ -230,17 +235,6 @@ function display(card) {
   grid10.classList.add("grid-item", "item10");
   grid10.appendChild(art);
 
-  /*result.appendChild(name);
-  result.appendChild(image);
-  result.appendChild(desc);
-  result.appendChild(color);
-  result.appendChild(cost);
-  result.appendChild(power);
-  result.appendChild(rarity);
-  result.appendChild(type);
-  result.appendChild(set);
-
-  page.appendChild(result);*/
   page.appendChild(grid1);
   page.appendChild(grid2);
   page.appendChild(grid3);
