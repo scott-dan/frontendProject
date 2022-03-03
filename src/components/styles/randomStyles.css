@@ -1,4 +1,4 @@
-.randomResult{
+/*.randomResult{
   text-align: center;
   border-radius: 25px;
   width: 70%;
@@ -7,17 +7,17 @@
   margin-left: auto;
   margin-right: auto;
   background: rgba(76, 175, 80, 0.3);
-}
+}*/
 .result{
   background: rgba(61, 73, 143, 0.3);
 }
 .name{
   font-weight: bold;
 }
-#select-box{
+/*#select-box{
   border-radius: 25px;
   border: 1px solid black;
-}
+}*/
 .button{
   border-radius: 15px;
   width: 44%;
@@ -34,7 +34,14 @@ transform: scale(1.15);
 -ms-transform: scale(1.15); /* IE 9 */
 -webkit-transform: scale(2.15); /* Safari and Chrome */
 }
-
+.template{
+  display: flex;
+  align-items: center;
+}
+.holder{
+  margin-left: auto;
+  margin-right: auto;
+}
 .bg{
   /*make div scrollable*/
   width: 100%;
@@ -43,4 +50,90 @@ transform: scale(1.15);
   overflow-y: auto;
   text-align: center;
   padding: 20px;
+}
+
+.grid-container{
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(5, 110px);
+  grid-template-rows: 50px 50px 50px 50px 50px;
+  border: 2px solid black;
+  padding: 5px;
+  margin: 5px;
+  background-image: url(../../images/slate.jpg);
+  background-repeat: repeat;
+}
+
+.grid-item{
+  border: 10px solid transparent;
+  border-image-source: url(../../images/rock.jpg);
+  border-image-repeat:round;
+  border-image-slice: 30;
+  color: white;
+  font-size: medium;
+  display: flex;
+}
+
+div.grid-item.item1{
+  grid-column: span 2;
+  grid-row: span 6;
+}
+
+div.grid-item.item2{
+  grid-column: span 3;
+}
+
+div.grid-item.item3{
+  grid-column: span 3;
+}
+
+div.grid-item.item4{
+grid-column: span 3;
+}
+
+div.grid-item.item5{
+  grid-column: span 3;
+}
+
+div.grid-item.item6{
+  grid-column: span 1;
+}
+
+div.grid-item.item7{
+  grid-column: span 2;
+}
+
+div.grid-item.item8{
+  grid-column: span 3;
+}
+
+div.grid-item.item9{
+  grid-column: span 5;
+}
+
+div.grid-item.item10{
+  grid-column: span 5;
+  grid-row: span 2;
+}
+
+@media screen and (max-width:414px) {
+  div.grid-item.item3 {
+    display: none;
+   }
+
+   div.grid-item.item6 {
+    grid-row: span 2;
+  }
+
+  div.grid-item.item7 {
+    display: none;
+ }
+
+ div.grid-item.item8{
+   display: none;
+ }
+
+ div.grid-item.item9 {
+   grid-row: span 2;
+  }
 }
