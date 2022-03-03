@@ -1,5 +1,4 @@
 import React from "react";
-//import { Slider } from "@mui/material";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
 
@@ -71,8 +70,6 @@ class CardsByDan extends React.Component {
   }
 
   getCards() {
-    const rand = this.getRandomIntInclusive(0, 99);
-
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -85,12 +82,6 @@ class CardsByDan extends React.Component {
       .catch((error) => this.setState({ apiCallError: true }));
   }
 
-  getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   newCardsButton() {
     return (
       <div>
@@ -99,26 +90,13 @@ class CardsByDan extends React.Component {
     );
   }
 
-  displayCards() { //need to consider user input for number of cards to display
-    //console.log(this.state.cardData.cards)
+  displayCards() {
     let items = [];
     let cards = this.state.cardData.cards;
-    console.log("line 106");
-    console.log(cards);
     cards = this.FisherYatesShuffle(this.state.cardData.cards);
-    //this.state.cardData.cards.setState(this.FisherYatesShuffle(this.state.cardData.cards))
-    //let length = this.state.cardData.cards.length;
-    //console.log(`card count: ${length}`);
-    //for (let i = 0; i < length; i++) {
-      console.log(this.state.displayCount);
       for (let i = 0; i < this.state.displayCount; i++) {
-      //console.log(this.state.cardData.cards[i]);
-      //items.push(<Card value={this.state.cardData.cards[i]}></Card>);
       items.push(<Card value={cards[i]}></Card>);
     }
-    console.log('items:');
-    //console.log(`items: ${items}`);
-    //items = this.FisherYatesShuffle(items);
     return items;
   }
 
@@ -139,23 +117,6 @@ class CardsByDan extends React.Component {
   
     return array;
   }
-
-/*   slider() {
-    return (
-      <div>
-        <Slider
-          aria-label="displayCount"
-          defaultValue={30}
-          valueLabelDisplay="auto"
-          step={1}
-          marks={true}
-          min={1}
-          max={5}
-        />
-        {this.newCardsButton()}
-      </div> 
-    )
-  } */
 
   displayCounter() {
     return (
@@ -185,8 +146,6 @@ class CardsByDan extends React.Component {
     return (
       <div>
         <h1>Cards By Dan</h1>
-        {this.displayCounter()}
-        <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}</p>
         <div>
           <img src="https://media.magic.wizards.com/image_legacy_migration/sideboard/images/usnat07/scott.jpg"
             alt="Dan Scott MtG Artist"/>
@@ -196,6 +155,11 @@ class CardsByDan extends React.Component {
             including such iconic cards as Ponder, Solemn Simulacrum and Akroma's Memorial. 
             He's painted dozens of Hearthstone cards as well.
           </p>
+        </div>
+        <div>
+          {this.displayCounter()}
+          <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card.</p>
+           {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}
         </div>
         <div className="d-inline-flex flex-wrap">
           {this.state.cardsToDisplay && this.displayCards()}
