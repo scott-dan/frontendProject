@@ -44,8 +44,8 @@ function Random() {
           </div>
         </div>
       </div>
-      <div className="randomizer text-center">
-        <section className="randomResult" id="randomResult"></section>
+      <div className="p-3">
+        <section className="grid-container" id="randomResult"></section>
       </div>
     </div>
   );
@@ -115,7 +115,10 @@ function display(card) {
   result.classList.add("result");
 
   let image = document.createElement("img");
-  image.classList.add("image");
+  let grid1 = document.createElement("div");
+  image.classList.add("image-expand");
+  image.height = 300;
+  image.width = 200;
   if (card.imageUrl === undefined) {
     image.src =
       "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
@@ -124,81 +127,110 @@ function display(card) {
     image.src = card.imageUrl;
     image.alt = card.name;
   }
+  grid1.classList.add("grid-item", "item1");
+  grid1.appendChild(image);
 
   let name = document.createElement("p");
+  let grid2 = document.createElement("div");
   name.classList.add("name");
   if (card.name === undefined) {
     name.innerHTML = "Unknown Name";
   } else {
     name.innerHTML = card.name;
   }
+  grid2.classList.add("grid-item", "item2");
+  grid2.appendChild(name);
 
 
   let desc = document.createElement("p");
+  let grid3 = document.createElement("div");
   desc.classList.add("name");
   if (card.text === undefined) {
     desc.innerHTML = "No description.";
   } else {
     desc.innerHTML = card.text;
   }
+  grid3.classList.add("grid-item", "item3");
+  grid3.appendChild(desc);
 
   let color = document.createElement("p");
+  let grid4 = document.createElement("div");
   color.classList.add("name");
   if (card.colors === undefined) {
     color.innerHTML = "Colors: N/A.";
   } else {
     color.innerHTML = "Colors: " + card.colors;
   }
+  grid4.classList.add("grid-item", "item4");
+  grid4.appendChild(color);
 
   let cost = document.createElement("p");
+  let grid5 = document.createElement("div");
   cost.classList.add("name");
   if (card.manaCost === undefined) {
     cost.innerHTML = "Cost: N/A";
   } else {
     cost.innerHTML = "Cost: " + card.manaCost;
   }
+  grid5.classList.add("grid-item", "item5");
+  grid5.appendChild(cost);
 
   let power = document.createElement("p");
+  let grid6 = document.createElement("div");
   power.classList.add("name");
   if (card.power === undefined) {
     power.innerHTML = "Power: N/A";
   } else {
     power.innerHTML = "Power: " + card.power;
   }
+  grid6.classList.add("grid-item", "item6");
+  grid6.appendChild(power);
 
   let rarity = document.createElement("p");
+  let grid7 = document.createElement("div");
   rarity.classList.add("name");
   if (card.rarity === undefined) {
     rarity.innerHTML = "Rarity: N/A";
   } else {
     rarity.innerHTML = "Rarity: " + card.rarity;
   }
+  grid7.classList.add("grid-item", "item7");
+  grid7.appendChild(rarity);
 
   let type = document.createElement("p");
+  let grid8 = document.createElement("div");
   type.classList.add("name");
   if (card.type === undefined) {
     type.innerHTML = "Types: N/A";
   } else {
     type.innerHTML = "Types: " + card.type;
   }
+  grid8.classList.add("grid-item", "item8");
+  grid8.appendChild(type);
 
   let set = document.createElement("p");
+  let grid9 = document.createElement("div");
   set.classList.add("name");
   if (card.setName === undefined) {
     set.innerHTML = "Set: N/A";
   } else {
     set.innerHTML = "Set: " + card.setName;
   }
+  grid9.classList.add("grid-item", "item9");
+  grid9.appendChild(set);
 
   let art = document.createElement("p");
+  let grid10 = document.createElement("div");
   art.classList.add("name");
   if (card.artist === undefined) {
     art.innerHTML = "Artist: N/A";
   } else {
     art.innerHTML = "Artist: " + card.artist;
   }
+  grid10.classList.add("grid-item", "item10");
+  grid10.appendChild(art);
 
-  result.appendChild(name);
+  /*result.appendChild(name);
   result.appendChild(image);
   result.appendChild(desc);
   result.appendChild(color);
@@ -208,6 +240,16 @@ function display(card) {
   result.appendChild(type);
   result.appendChild(set);
 
-  page.appendChild(result);
+  page.appendChild(result);*/
+  page.appendChild(grid1);
+  page.appendChild(grid2);
+  page.appendChild(grid3);
+  page.appendChild(grid4);
+  page.appendChild(grid5);
+  page.appendChild(grid6);
+  page.appendChild(grid7);
+  page.appendChild(grid8);
+  page.appendChild(grid9);
+  page.appendChild(grid10);
 }
 export default Random;
