@@ -20,7 +20,7 @@ function Random() {
               <div className="card-type">
                 <label htmlFor="card-type">Card Type:</label>
                 <br />
-                <select name="card-type" id="select-box" class = "select-box">
+                <select name="card-type" id="select-box" >
                   <option value="All">All Types</option>
                   <option value="Creature">Creatures</option>
                   <option value="Land">Lands</option>
@@ -76,8 +76,6 @@ function rnd() {
     fetch(url + "/?types=" + selectedType.value)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        console.log(data.cards[randSelected]);
         display(data.cards[randSelected]);
       });
   } else {
@@ -101,6 +99,13 @@ function rnd() {
       });
   }
 }
+/**
+ * Appends a div created with the formatted
+ * contents of the passed in card
+ * to the page section while accounting 
+ * for undefined input.
+ * @param {*} card 
+ */
 function display(card) {
   let page = document.getElementById("randomResult");
   let result = document.createElement("div");
