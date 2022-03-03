@@ -248,7 +248,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div class="bg">
+      <div className="bg">
         <h1>Searchpage</h1>
         <div>
           <select onChange={(event) => this.handleDDLChange(event)}>
