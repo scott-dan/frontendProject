@@ -1,6 +1,5 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../components/styles/searchStyles.css";
+//import { Slider } from "@mui/material";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
 
@@ -66,6 +65,8 @@ class CardsByDan extends React.Component {
       apiCallError: false,
       cardData: [],
       cardsToDisplay: false,
+      displayCount: 3,
+      refreshRate: 0,
     };
   }
 
@@ -93,30 +94,98 @@ class CardsByDan extends React.Component {
   newCardsButton() {
     return (
       <div>
-        <button onClick={() => this.getCards()}>Get New Cards!</button>
+        <button onClick={() => this.getCards()}>Get Cards!</button>
       </div>
     );
   }
 
-  displayCards() {
+  displayCards() { //need to consider user input for number of cards to display
     //console.log(this.state.cardData.cards)
     let items = [];
-    let length = this.state.cardData.cards.length;
+    let cards = this.state.cardData.cards;
+    console.log("line 106");
+    console.log(cards);
+    cards = this.FisherYatesShuffle(this.state.cardData.cards);
+    //this.state.cardData.cards.setState(this.FisherYatesShuffle(this.state.cardData.cards))
+    //let length = this.state.cardData.cards.length;
     //console.log(`card count: ${length}`);
-    for (let i = 0; i < length; i++) {
+    //for (let i = 0; i < length; i++) {
+      console.log(this.state.displayCount);
+      for (let i = 0; i < this.state.displayCount; i++) {
       //console.log(this.state.cardData.cards[i]);
-      items.push(<Card value={this.state.cardData.cards[i]}></Card>);
+      //items.push(<Card value={this.state.cardData.cards[i]}></Card>);
+      items.push(<Card value={cards[i]}></Card>);
     }
-    //console.log('items:');
+    console.log('items:');
     //console.log(`items: ${items}`);
+    //items = this.FisherYatesShuffle(items);
     return items;
+  }
+
+  FisherYatesShuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+/*   slider() {
+    return (
+      <div>
+        <Slider
+          aria-label="displayCount"
+          defaultValue={30}
+          valueLabelDisplay="auto"
+          step={1}
+          marks={true}
+          min={1}
+          max={5}
+        />
+        {this.newCardsButton()}
+      </div> 
+    )
+  } */
+
+  displayCounter() {
+    return (
+      <div>
+        <br />
+        <label htmlFor="displayCount">Number of Cards to Display (1-100):</label>
+        <br />
+        <input
+          type="number"
+          id="displayCount"
+          min="1"
+          max="100"
+          step="1"
+          onChange={(evt) => this.updateDisplayCount(evt)}
+        ></input>
+        {this.newCardsButton()}  
+      </div>
+    );
+  }
+
+  updateDisplayCount(evt) {
+    const count = evt.target.value;
+    this.setState({displayCount: count,});
   }
 
   render() {
     return (
       <div>
         <h1>Cards By Dan</h1>
-        {this.newCardsButton()}
+        {this.displayCounter()}
         <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}</p>
         <div>
           <img src="https://media.magic.wizards.com/image_legacy_migration/sideboard/images/usnat07/scott.jpg"
