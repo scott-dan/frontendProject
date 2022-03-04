@@ -178,25 +178,25 @@ function Card(props){
                 <div className="checklist">
                     <input type="checkbox" id="english" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>English</label><br />
-                    <input type="checkbox" id="chineseS" />
+                    <input type="checkbox" id="chineseS" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Chinese (Simplified)</label><br />
-                    <input type="checkbox" id="chineseT" />
+                    <input type="checkbox" id="chineseT" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Chinese (Traditional)</label><br />
-                    <input type="checkbox" id="french"/>
+                    <input type="checkbox" id="french"onChange={(evt) => this.handleEvent(evt)}/>
                     <label>French</label><br />
-                    <input type="checkbox" id="german" />
+                    <input type="checkbox" id="german" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>German</label><br />
-                    <input type="checkbox" id="italian" />
+                    <input type="checkbox" id="italian" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Italian</label><br />
-                    <input type="checkbox" id="korean" />
+                    <input type="checkbox" id="korean" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Korean</label><br />
-                    <input type="checkbox" id="japanese" />
+                    <input type="checkbox" id="japanese" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Japanese</label><br />
-                    <input type="checkbox" id="portugese" />
+                    <input type="checkbox" id="portugese" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Portugese</label><br />
-                    <input type="checkbox" id="russian" />
+                    <input type="checkbox" id="russian" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Russian</label><br />
-                    <input type="checkbox" id="spanish" />
+                    <input type="checkbox" id="spanish" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Spanish</label><br />
                 </div>
                 
@@ -207,6 +207,8 @@ function Card(props){
     }
 
     handleEvent(evt) {
+      console.log(evt.target.id);
+      console.log(evt.target.checked);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});
