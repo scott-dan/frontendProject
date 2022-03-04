@@ -39,10 +39,16 @@ const MapChart = () => {
                     geography={geo}
                     fill="#F5CE42"
                     stroke="#42A1F5"
+                    style={{
+                      default: { outline: "none" },
+                      hover: { outline: "none" },
+                      pressed: { outline: "none" },
+                    }}
                   />
                 )
             }
           </Geographies>
+          {/*Check each marker state, if checked, add script to render marker here */}
           {markers.map(({ name, coordinates, markerOffset }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
@@ -65,6 +71,9 @@ const MapChart = () => {
               </text>
             </Marker>
           ))}
+          <Marker coordinates={[126.9780, 37.5665]}>
+        <circle r={8} fill="#F53" style={{hidden: { display: "none" }, }}/>
+      </Marker>
         </ZoomableGroup>
       </ComposableMap>
     );
@@ -260,6 +269,9 @@ function Card(props){
             </div>
             <div className="col-lg-10">
             <MapChart />
+            {/* <Marker coordinates={[-74.006, 40.7128]}>
+              <circle r={8} fill="#F53" />
+            </Marker> */}
             </div>
             </div>
             </div>
