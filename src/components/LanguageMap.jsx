@@ -48,6 +48,7 @@ const MapChart = () => {
                 )
             }
           </Geographies>
+          {/*Check each marker state, if checked, add script to render marker here */}
           {markers.map(({ name, coordinates, markerOffset }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
@@ -70,6 +71,9 @@ const MapChart = () => {
               </text>
             </Marker>
           ))}
+          <Marker coordinates={[126.9780, 37.5665]}>
+        <circle r={8} fill="#F53" style={{hidden: { display: "none" }, }}/>
+      </Marker>
         </ZoomableGroup>
       </ComposableMap>
     );
@@ -174,10 +178,10 @@ function Card(props){
                     <input type="checkbox" id="english" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>English</label><br />
                     <input type="checkbox" id="chineseS" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Chinese (Simplified)</label><br onChange={(evt) => this.handleEvent(evt)}/>
-                    <input type="checkbox" id="chineseT" />
-                    <label>Chinese (Traditional)</label><br onChange={(evt) => this.handleEvent(evt)}/>
-                    <input type="checkbox" id="french"/>
+                    <label>Chinese (Simplified)</label><br />
+                    <input type="checkbox" id="chineseT" onChange={(evt) => this.handleEvent(evt)}/>
+                    <label>Chinese (Traditional)</label><br />
+                    <input type="checkbox" id="french"onChange={(evt) => this.handleEvent(evt)}/>
                     <label>French</label><br />
                     <input type="checkbox" id="german" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>German</label><br />
@@ -289,6 +293,9 @@ function Card(props){
             </div>
             <div className="col-lg-10">
             <MapChart />
+            {/* <Marker coordinates={[-74.006, 40.7128]}>
+              <circle r={8} fill="#F53" />
+            </Marker> */}
             </div>
             </div>
             </div>
