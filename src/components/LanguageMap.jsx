@@ -7,12 +7,9 @@ import {
     Marker
   } from "react-simple-maps";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-  const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=mana";
-
-//const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=,&language=german"; //weird url required to obtain all languages
+const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name,=&language=";
 
 function Card(props){
     return (
@@ -341,14 +338,22 @@ function Card(props){
     }
 
     getCards() {
-      let apiCall = BASE_URL;
-      fetch(apiCall)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data)
-          this.parseCards(data.cards);
-        })
-        .catch((error) => this.setState({ apiCallError: true }));
+      let cardList = [];
+      let checkList = document.getElementById("checkboxContainer");
+      checkList = checkList.getElementsByTagName("input");
+      for(let i = 0; i < checkList.length; i++) {
+        if(checkList[i].checked) {
+          let apiCall = BASE_URL + checkList[i].id;
+          console.log(`api call: ${apiCall}`);
+          fetch(apiCall)
+            .then((response) => response.json())
+            .then((data) => { //need to handle GET 500 error
+              console.log(data)
+              cardList.push(data.cards);
+          })
+          .catch((error) => this.setState({ apiCallError: true }));
+        }
+      }
     }
 
     checkbox() {      
@@ -410,7 +415,6 @@ function Card(props){
     handleEvent(evt) {
       console.log(evt.target.id);
       console.log(evt.target.checked);
-      //console.log(this.state);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});
@@ -449,29 +453,6 @@ function Card(props){
           console.log('No checkbox interacted with');
       }
     }
-
-      parseCards(cards) {
-        //create new array;
-        let langList = [];
-        let cardList = [];
-        //check all checkbox values
-        let checkList = document.getElementById("checkboxContainer");
-        checkList = checkList.getElementsByTagName("input");
-        //console.log(checkList);
-        for(let i = 0; i < checkList.length; i++) {
-          //console.log(`${checkList[i].id}: ${checkList[i].checked}`);
-          if(checkList[i].checked) {
-            langList.push(checkList[i].id);
-          }
-        }
-        console.log(`languages: ${langList}`);
-        for(let i = 0; i < cards.length; i++) {
-          if(langList.includes(cards[i].language)) {
-            cardList.push(cards[i]);
-          }
-        }
-        console.log(cardList);
-      }
 
     render() {
         return (
