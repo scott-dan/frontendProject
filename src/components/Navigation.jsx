@@ -33,8 +33,8 @@ function Navigation() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/statistics">
-                Statistics
+                <NavLink className="nav-link" to="/mana">
+                  Creatures by Mana
                 </NavLink>
               </li>
               <li className="nav-item">

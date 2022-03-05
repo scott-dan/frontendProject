@@ -6,6 +6,13 @@ import { noSpecialCharacters } from "./regex.jsx";
 
 let url = "https://api.magicthegathering.io/v1/";
 
+/**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
 function Card(props) {
   return (
     <div className="p-3">
@@ -64,6 +71,13 @@ function Card(props) {
   );
 }
 
+/**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -86,6 +100,13 @@ class Search extends React.Component {
     };
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   updateInputValue(evt) {
     const val = evt.target.value;
     this.setState({
@@ -93,6 +114,13 @@ class Search extends React.Component {
     });
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   validateUserInput() {
     if (this.state.inputValue.length === 0) {
       console.log("no input detected.");
@@ -125,6 +153,13 @@ class Search extends React.Component {
     }
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   processSearch(response) {
     if (response.headers.count === "0") {
       this.setState({
@@ -141,6 +176,13 @@ class Search extends React.Component {
     });
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   getData() {
     let fullSearchUrl =
       url +
@@ -157,6 +199,13 @@ class Search extends React.Component {
       .catch((error) => this.setState({ apiCallError: true }));
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   renderDivs() {
     let uiItems = [];
     let length = parseInt(this.state.rawSearchResponse.headers.count);
@@ -168,6 +217,13 @@ class Search extends React.Component {
     return uiItems;
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   handleDDLChange(event) {
     if (event.target.value === "toughness" || event.target.value === "power") {
       this.setState({
@@ -191,6 +247,13 @@ class Search extends React.Component {
     this.setState({ searchCategory: event.target.value });
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   searchButton() {
     return (
       <div>
@@ -199,6 +262,13 @@ class Search extends React.Component {
     );
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   searchBar() {
     return (
       <div>
@@ -213,6 +283,13 @@ class Search extends React.Component {
     );
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   numericRangeInput() {
     return (
       <div>
@@ -232,6 +309,13 @@ class Search extends React.Component {
     );
   }
 
+  /**
+ * Summary.
+ *
+ * Description.
+ *
+ * @return {type} Return value description.
+ */
   raritySelectorDDL() {
     return (
       <div>
