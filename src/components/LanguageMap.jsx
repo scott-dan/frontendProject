@@ -24,61 +24,6 @@ const markers = [
 { markerOffset: 7, name: "Spanish", coordinates: [3.7038, 40.4168] },
 ];
 
-const MapChart = () => {
-    return (
-      <ComposableMap>
-        <ZoomableGroup zoom={1.5} minZoom={1} maxZoom={5} center={[80, 30]}>
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies
-              .filter(d => d.properties.REGION_UN === "Europe" 
-                        || d.properties.REGION_UN === "Asia")
-              .map(geo => 
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill="#F5CE42"
-                    stroke="#42A1F5"
-                    style={{
-                      default: { outline: "none" },
-                      hover: { outline: "none" },
-                      pressed: { outline: "none" },
-                    }}
-                  />
-                )
-            }
-          </Geographies>
-          {/*Check each marker state, if checked, add script to render marker here */}
-          {markers.map(({ name, coordinates, markerOffset }) => (
-            <Marker key={name} coordinates={coordinates}>
-              <g
-                fill="none"
-                stroke="#FF5533"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                transform="translate(-12, -24)"
-              >
-                <circle cx="12" cy="10" r="3" />
-                <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
-              </g>
-              <text
-                textAnchor="middle"
-                y={markerOffset}
-                style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
-              >
-                {name}
-              </text>
-            </Marker>
-          ))}
-          <Marker coordinates={[126.9780, 37.5665]}>
-        <circle r={8} fill="#F53" style={{hidden: { display: "none" }, }}/>
-      </Marker>
-        </ZoomableGroup>
-      </ComposableMap>
-    );
-  };
-
 const BASE_URL = "https://api.magicthegathering.io/v1/cards/?";
 
 function Card(props){
@@ -157,6 +102,278 @@ function Card(props){
         spanish: false,
       };
     }
+    
+    mapChart() {
+      return (
+        <ComposableMap>
+          <ZoomableGroup zoom={1.5} minZoom={1} maxZoom={5} center={[80, 30]}>
+            <Geographies geography={geoUrl}>
+              {({ geographies }) =>
+                geographies
+                .filter(d => d.properties.REGION_UN === "Europe" 
+                          || d.properties.REGION_UN === "Asia")
+                .map(geo => 
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="#F5CE42"
+                      stroke="#42A1F5"
+                      style={{
+                        default: { outline: "none" },
+                        hover: { outline: "none" },
+                        pressed: { outline: "none" },
+                      }}
+                    />
+                  )
+              }
+            </Geographies>
+            {/*Check each marker state, if checked, add script to render marker here */}
+            {markers.map(({ name, coordinates, markerOffset }) => (
+              <Marker hidden={true} key={name} coordinates={coordinates}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y={markerOffset}
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {name}
+                </text>
+              </Marker>
+            ))}
+            <Marker hidden={!this.state.english} name="english" coordinates={[0.1276, 51.5072]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'English'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.chineseS} name="chineseS" coordinates={[116.4074, 39.9042]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Chinese (Simplified)'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.chineseT} name="chineseT" coordinates={[114.1850, 36.0736]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Chinese (Traditional)'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.french} name="french" coordinates={[2.3522, 48.8566]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'French'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.german} name="german" coordinates={[13.4050, 52.5200]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'German'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.italian} name="italian" coordinates={[9.1900, 45.4642]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Italian'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.korean} name="korean" coordinates={[126.9780, 37.5665]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Korean'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.japanese} name="japanese" coordinates={[139.6503, 35.6762]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Japanese'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.portugese} name="portugese" coordinates={[-9.2738, 38.7223]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Portugese'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.russian} name="russian" coordinates={[37.6173, 55.7558]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Russian'}
+                </text>
+            </Marker>
+            <Marker hidden={!this.state.spanish} name="spanish" coordinates={[-3.8504, 40.3786]}>
+                <g
+                  fill="none"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  transform="translate(-12, -24)"
+                >
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </g>
+                <text
+                  textAnchor="middle"
+                  y='7'
+                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+                >
+                  {'Spanish'}
+                </text>
+            </Marker>
+          </ZoomableGroup>
+        </ComposableMap>
+      );
+    };
 
     getCards(langArgs) {
         let apiCall = BASE_URL + langArgs;
@@ -172,7 +389,7 @@ function Card(props){
           .catch((error) => this.setState({ apiCallError: true }));
       }
 
-    checkbox() { //add onchange event handlers for checkboxes to allow display toggle for language markers on map      
+    checkbox() {      
       return (
                 <div className="checklist">
                     <input type="checkbox" id="english" onChange={(evt) => this.handleEvent(evt)}/>
@@ -213,6 +430,7 @@ function Card(props){
     handleEvent(evt) {
       console.log(evt.target.id);
       console.log(evt.target.checked);
+      console.log(this.state);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});
@@ -253,10 +471,13 @@ function Card(props){
     }
 
       buildQuery() {
-        console.log('line 244');
+        Object.keys(this.state).map(i => console.log(this.state[i]));
+        //console.log('line 244');
         //create new string
         let queryString = '';
         //check all checkbox states
+        this.state.foreach(element => console.log(element));
+        //console.log(this.state.map())
         /* Object.keys(this.state.item).map(function (key) {
           let myItem = this.state.item[key];
           console.log(myItem); */
@@ -268,14 +489,6 @@ function Card(props){
         //concatenate new string with base url
         //return query string
       }
-
-
-      /* console.log(checkboxState)
-      const val = evt.target.checked;
-      console.log(val)
-      this.setState({checkboxState: val,});
-      console.log(this.state.english)
-    }  */
 
     render() {
         return (
@@ -292,10 +505,7 @@ function Card(props){
                 {this.buttons()}
             </div>
             <div className="col-lg-10">
-            <MapChart />
-            {/* <Marker coordinates={[-74.006, 40.7128]}>
-              <circle r={8} fill="#F53" />
-            </Marker> */}
+            {this.mapChart()}
             </div>
             </div>
             </div>
