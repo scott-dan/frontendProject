@@ -34,7 +34,12 @@ function Navigation() {
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/statistics">
-                Statistics
+                  Statistics
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/mana">
+                  Creatures by Mana
                 </NavLink>
               </li>
               <li className="nav-item">
