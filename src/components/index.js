@@ -6,3 +6,4 @@ export { default as Random, } from "./Random"; //is this comma necessary?
 export { default as CardsByDan } from "./CardsByDan";
 export { default as About } from "./About";
 export { default as Contact } from "./Contact";
+export { default as Mana } from "./Mana";
