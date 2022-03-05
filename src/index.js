@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-//import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   Navigation,
@@ -13,6 +12,7 @@ import {
   Random,
   CardsByDan,
   Statistics,
+  LanguageMap,
   Mana
 } from "./components";
 ReactDOM.render(
@@ -27,6 +27,7 @@ ReactDOM.render(
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/statistics" element={<Statistics />} />
+      <Route path="/languageMap" element={<LanguageMap />} />
     </Routes>
     <Footer />
   </Router>,
