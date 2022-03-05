@@ -13,6 +13,7 @@ import {
   CardsByDan,
   Statistics,
   LanguageMap,
+  Mana
 } from "./components";
 ReactDOM.render(
   <Router>
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Route path="/search" element={<Search />} />
       <Route path="/random" element={<Random />} />
       <Route path="/cardsByDan" element={<CardsByDan />} />
+      <Route path="/mana" element={<Mana />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/statistics" element={<Statistics />} />
