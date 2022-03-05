@@ -10,21 +10,9 @@ import {
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-const markers = [
-{ markerOffset: 7, name: "English", coordinates: [0.1276, 51.5072] },
-{ markerOffset: 7, name: "Simplified Chinese", coordinates: [116.4074, 39.9042] },
-{ markerOffset: 7, name: "Traditional Chinese", coordinates: [114.1850, 36.0736] },
-{ markerOffset: 7, name: "French", coordinates: [2.3522, 48.8566] },
-{ markerOffset: 7, name: "German", coordinates: [13.4050, 52.5200] },
-{ markerOffset: 7, name: "Italian", coordinates: [9.1900, 45.4642] },
-{ markerOffset: 7, name: "Korean", coordinates: [126.9780, 37.5665] },
-{ markerOffset: 7, name: "Japanese", coordinates: [139.6503, 35.6762] },
-{ markerOffset: 7, name: "Portugese", coordinates: [9.1393, 38.7223] },
-{ markerOffset: 7, name: "Russian", coordinates: [37.6173, 55.7558] },
-{ markerOffset: 7, name: "Spanish", coordinates: [3.7038, 40.4168] },
-];
+  const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=mana";
 
-const BASE_URL = "https://api.magicthegathering.io/v1/cards/?";
+//const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=,&language=german"; //weird url required to obtain all languages
 
 function Card(props){
     return (
@@ -127,29 +115,6 @@ function Card(props){
                   )
               }
             </Geographies>
-            {/*Check each marker state, if checked, add script to render marker here */}
-            {markers.map(({ name, coordinates, markerOffset }) => (
-              <Marker hidden={true} key={name} coordinates={coordinates}>
-                <g
-                  fill="none"
-                  stroke="#FF5533"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  transform="translate(-12, -24)"
-                >
-                  <circle cx="12" cy="10" r="3" />
-                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
-                </g>
-                <text
-                  textAnchor="middle"
-                  y={markerOffset}
-                  style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
-                >
-                  {name}
-                </text>
-              </Marker>
-            ))}
             <Marker hidden={!this.state.english} name="english" coordinates={[0.1276, 51.5072]}>
                 <g
                   fill="none"
@@ -373,64 +338,79 @@ function Card(props){
           </ZoomableGroup>
         </ComposableMap>
       );
-    };
+    }
 
-    getCards(langArgs) {
-        let apiCall = BASE_URL + langArgs;
-        fetch(apiCall)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data)
-            this.setState({
-              cardData: data,
-              cardsToDisplay: true,
-            });
-          })
-          .catch((error) => this.setState({ apiCallError: true }));
-      }
+    getCards() {
+      let apiCall = BASE_URL;
+      fetch(apiCall)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          this.parseCards(data.cards);
+        })
+        .catch((error) => this.setState({ apiCallError: true }));
+    }
 
     checkbox() {      
       return (
-                <div className="checklist">
-                    <input type="checkbox" id="english" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>English</label><br />
-                    <input type="checkbox" id="chineseS" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Chinese (Simplified)</label><br />
-                    <input type="checkbox" id="chineseT" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Chinese (Traditional)</label><br />
-                    <input type="checkbox" id="french"onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>French</label><br />
-                    <input type="checkbox" id="german" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>German</label><br />
-                    <input type="checkbox" id="italian" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Italian</label><br />
-                    <input type="checkbox" id="korean" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Korean</label><br />
-                    <input type="checkbox" id="japanese" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Japanese</label><br />
-                    <input type="checkbox" id="portugese" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Portugese</label><br />
-                    <input type="checkbox" id="russian" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Russian</label><br />
-                    <input type="checkbox" id="spanish" onChange={(evt) => this.handleEvent(evt)}/>
-                    <label>Spanish</label><br />
-                </div>
-        )
+        <div className="checkboxContainer" id="checkboxContainer">
+          <input type="checkbox" id="english" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>English</label><br />
+          <input type="checkbox" id="chineseS" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Chinese (Simplified)</label><br />
+          <input type="checkbox" id="chineseT" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Chinese (Traditional)</label><br />
+          <input type="checkbox" id="french"onChange={(evt) => this.handleEvent(evt)}/>
+          <label>French</label><br />
+          <input type="checkbox" id="german" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>German</label><br />
+          <input type="checkbox" id="italian" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Italian</label><br />
+          <input type="checkbox" id="korean" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Korean</label><br />
+          <input type="checkbox" id="japanese" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Japanese</label><br />
+          <input type="checkbox" id="portugese" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Portugese</label><br />
+          <input type="checkbox" id="russian" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Russian</label><br />
+          <input type="checkbox" id="spanish" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Spanish</label><br />
+          {this.buttons()}
+        </div>
+        );
     }
     buttons() {
       return (
         <div className="checklistButtons">
-          {/* <button onClick={this.buildQuery()}>Submit</button> */}
-          <button>Submit</button>
-          <input type="reset" value="Reset"/>
+          <button onClick={() => this.getCards()}>Get Cards</button>
+          {/*<button>Submit</button>*/}
+          {/*<button type="reset" value="Reset" onClick={() => this.clearMarkers()}>Reset</button>*/}
         </div>
-      )
+      );
     }
+
+    /* clearMarkers() {
+      this.setState({
+        english: false,
+        chineseS: false,
+        chineseT: false,
+        french: false,
+        german: false,
+        italian: false,
+        korean: false,
+        japanese: false,
+        portugese: false,
+        russian: false,
+        spanish: false,
+      });
+      return;
+    } */
 
     handleEvent(evt) {
       console.log(evt.target.id);
       console.log(evt.target.checked);
-      console.log(this.state);
+      //console.log(this.state);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});
@@ -470,24 +450,27 @@ function Card(props){
       }
     }
 
-      buildQuery() {
-        Object.keys(this.state).map(i => console.log(this.state[i]));
-        //console.log('line 244');
-        //create new string
-        let queryString = '';
-        //check all checkbox states
-        this.state.foreach(element => console.log(element));
-        //console.log(this.state.map())
-        /* Object.keys(this.state.item).map(function (key) {
-          let myItem = this.state.item[key];
-          console.log(myItem); */
-          /* if(myItem.checked === true) {
-            queryString += 
-          } */
-        //})
-          //if state is checked append query value to string
-        //concatenate new string with base url
-        //return query string
+      parseCards(cards) {
+        //create new array;
+        let langList = [];
+        let cardList = [];
+        //check all checkbox values
+        let checkList = document.getElementById("checkboxContainer");
+        checkList = checkList.getElementsByTagName("input");
+        //console.log(checkList);
+        for(let i = 0; i < checkList.length; i++) {
+          //console.log(`${checkList[i].id}: ${checkList[i].checked}`);
+          if(checkList[i].checked) {
+            langList.push(checkList[i].id);
+          }
+        }
+        console.log(`languages: ${langList}`);
+        for(let i = 0; i < cards.length; i++) {
+          if(langList.includes(cards[i].language)) {
+            cardList.push(cards[i]);
+          }
+        }
+        console.log(cardList);
       }
 
     render() {
@@ -502,7 +485,6 @@ function Card(props){
                 type and scrambled it to make a type specimen book.</p>
             <div className="col-lg-2">
                 {this.checkbox()}
-                {this.buttons()}
             </div>
             <div className="col-lg-10">
             {this.mapChart()}
