@@ -39,6 +39,11 @@ const MapChart = () => {
                     geography={geo}
                     fill="#F5CE42"
                     stroke="#42A1F5"
+                    style={{
+                      default: { outline: "none" },
+                      hover: { outline: "none" },
+                      pressed: { outline: "none" },
+                    }}
                   />
                 )
             }
@@ -165,39 +170,45 @@ function Card(props){
 
     checkbox() { //add onchange event handlers for checkboxes to allow display toggle for language markers on map      
       return (
-            <form>
                 <div className="checklist">
                     <input type="checkbox" id="english" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>English</label><br />
-                    <input type="checkbox" id="chineseS" />
-                    <label>Chinese (Simplified)</label><br />
+                    <input type="checkbox" id="chineseS" onChange={(evt) => this.handleEvent(evt)}/>
+                    <label>Chinese (Simplified)</label><br onChange={(evt) => this.handleEvent(evt)}/>
                     <input type="checkbox" id="chineseT" />
-                    <label>Chinese (Traditional)</label><br />
+                    <label>Chinese (Traditional)</label><br onChange={(evt) => this.handleEvent(evt)}/>
                     <input type="checkbox" id="french"/>
                     <label>French</label><br />
-                    <input type="checkbox" id="german" />
+                    <input type="checkbox" id="german" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>German</label><br />
-                    <input type="checkbox" id="italian" />
+                    <input type="checkbox" id="italian" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Italian</label><br />
-                    <input type="checkbox" id="korean" />
+                    <input type="checkbox" id="korean" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Korean</label><br />
-                    <input type="checkbox" id="japanese" />
+                    <input type="checkbox" id="japanese" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Japanese</label><br />
-                    <input type="checkbox" id="portugese" />
+                    <input type="checkbox" id="portugese" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Portugese</label><br />
-                    <input type="checkbox" id="russian" />
+                    <input type="checkbox" id="russian" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Russian</label><br />
-                    <input type="checkbox" id="spanish" />
+                    <input type="checkbox" id="spanish" onChange={(evt) => this.handleEvent(evt)}/>
                     <label>Spanish</label><br />
                 </div>
-                
-                <input type="submit" value="Submit" />
-                <input type="reset" value="Reset"/>
-            </form>
         )
+    }
+    buttons() {
+      return (
+        <div className="checklistButtons">
+          {/* <button onClick={this.buildQuery()}>Submit</button> */}
+          <button>Submit</button>
+          <input type="reset" value="Reset"/>
+        </div>
+      )
     }
 
     handleEvent(evt) {
+      console.log(evt.target.id);
+      console.log(evt.target.checked);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});
@@ -235,15 +246,32 @@ function Card(props){
         default:
           console.log('No checkbox interacted with');
       }
+    }
 
+      buildQuery() {
+        console.log('line 244');
+        //create new string
+        let queryString = '';
+        //check all checkbox states
+        /* Object.keys(this.state.item).map(function (key) {
+          let myItem = this.state.item[key];
+          console.log(myItem); */
+          /* if(myItem.checked === true) {
+            queryString += 
+          } */
+        //})
+          //if state is checked append query value to string
+        //concatenate new string with base url
+        //return query string
+      }
 
 
       /* console.log(checkboxState)
       const val = evt.target.checked;
       console.log(val)
       this.setState({checkboxState: val,});
-      console.log(this.state.english) */
-    }  
+      console.log(this.state.english)
+    }  */
 
     render() {
         return (
@@ -257,6 +285,7 @@ function Card(props){
                 type and scrambled it to make a type specimen book.</p>
             <div className="col-lg-2">
                 {this.checkbox()}
+                {this.buttons()}
             </div>
             <div className="col-lg-10">
             <MapChart />
