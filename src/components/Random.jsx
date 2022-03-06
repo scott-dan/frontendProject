@@ -64,9 +64,9 @@ function Random() {
 function rnd() {
   //Generating two random values for database-wide & query-wide searches.
   let rand = Math.floor(Math.random() * 4980);
-  let serchUrl = url + "/" + rand;
+  let searchUrl = url + "/" + rand;
   let randSelected = Math.floor(Math.random() * 100);
-  console.log(serchUrl);
+  console.log(searchUrl);
 
   let page = document.getElementById("randomResult");
 
@@ -86,7 +86,7 @@ function rnd() {
       });
   } else {
     // More in-depth then needed but searches through each card.
-    fetch(serchUrl) 
+    fetch(searchUrl) 
       .then((response) => response.json())
       .then((data) => {
         //Ensures it's a valid card.
