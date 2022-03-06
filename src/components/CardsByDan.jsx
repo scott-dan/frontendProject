@@ -114,6 +114,9 @@ class CardsByDan extends React.Component {
       for (let i = 0; i < this.state.displayCount; i++) {
       //console.log(this.state.cardData.cards[i]);
       //items.push(<Card value={this.state.cardData.cards[i]}></Card>);
+      if(cards[i].imageUrl === undefined){
+          cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
+      }
       items.push(<Card value={cards[i]}></Card>);
     }
     console.log('items:');
