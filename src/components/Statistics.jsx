@@ -16,9 +16,9 @@ function Statistics() {
         <div className="row align-items-center my-5">
           <div className="col-lg-7">
             <div className="col-lg-5">
-              <h1 className="font-weight-light">Statistic 1</h1>
+              <h1 className="font-weight-light">Card Rarity</h1>
               <p>
-                Here we have the rarity among among 100 magic the gathering
+                Here we have the rarity among 100 magic the gathering
                 cards. You can also click the generate button to search through
                 another 100 cards with the results displayed below.
               </p>
