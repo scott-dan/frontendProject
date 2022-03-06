@@ -91,7 +91,7 @@ function Card(props){
     mapChart() {
       return (
         <ComposableMap>
-          <ZoomableGroup zoom={1.5} minZoom={1} maxZoom={5} center={[80, 30]}>
+          <ZoomableGroup zoom={1.5} minZoom={1.5} maxZoom={3} center={[80, 30]}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies
@@ -348,12 +348,27 @@ function Card(props){
           fetch(apiCall)
             .then((response) => response.json())
             .then((data) => { //need to handle GET 500 error
-              console.log(data)
+              //console.log(data)
+              //this.displayCards(data.cards);
               cardList.push(data.cards);
           })
           .catch((error) => this.setState({ apiCallError: true }));
         }
       }
+      this.setState({cardsToDisplay: true, cardData: cardList});
+    }
+
+    displayCards() {
+      let items = [];
+      let cards = this.state.cardData;
+      //console.log(cards);
+      for (let x = 0; x < cards.length; x++) {
+        for (let y = 0; y < cards[x].length; y++) {
+          //console.log(cards[x][y]);
+          items.push(<Card value={cards[x][y]}></Card>);
+        }
+      }
+      return items;
     }
 
     checkbox() {      
@@ -473,7 +488,7 @@ function Card(props){
             </div>
             </div>
             <div className="d-inline-flex flex-wrap">
-              {/* {this.state.mapToDisplay && this.displayCards()} */}
+              {this.state.cardsToDisplay && this.displayCards()}
             </div>
           </div>
         );
