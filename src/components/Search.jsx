@@ -216,7 +216,7 @@ class Search extends React.Component {
     let length = parseInt(this.state.rawSearchResponse.headers.count);
     for (let i = 0; i < length; i++) {
       uiItems.push(
-        <Card value={this.state.rawSearchResponse.data.cards[i]}></Card>
+        <Card key={i} value={this.state.rawSearchResponse.data.cards[i]}></Card>
       );
     }
     return uiItems;
