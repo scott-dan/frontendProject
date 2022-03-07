@@ -1,7 +1,7 @@
 import React from "react";
-//import { Slider } from "@mui/material";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
+let cardCount;
 
 function Card(props){
   return (
@@ -66,7 +66,7 @@ class CardsByDan extends React.Component {
       cardData: [],
       cardsToDisplay: false,
       displayCount: 3,
-      refreshRate: 0,
+      rerender: false
     };
   }
 
@@ -80,9 +80,10 @@ class CardsByDan extends React.Component {
         this.setState({
           cardData: data,
           cardsToDisplay: true,
+          displayCount: cardCount
         });
       })
-      .catch((error) => this.setState({ apiCallError: true }));
+      .catch((error) => this.setState({ apiCallError: true, cardsToDisplay: false }));
   }
 
   getRandomIntInclusive(min, max) {
@@ -99,29 +100,20 @@ class CardsByDan extends React.Component {
     );
   }
 
-  displayCards() { //need to consider user input for number of cards to display
-    //console.log(this.state.cardData.cards)
+  displayCards() {
     let items = [];
     let cards = this.state.cardData.cards;
     console.log("line 106");
     console.log(cards);
     cards = this.FisherYatesShuffle(this.state.cardData.cards);
-    //this.state.cardData.cards.setState(this.FisherYatesShuffle(this.state.cardData.cards))
-    //let length = this.state.cardData.cards.length;
-    //console.log(`card count: ${length}`);
-    //for (let i = 0; i < length; i++) {
       console.log(this.state.displayCount);
       for (let i = 0; i < this.state.displayCount; i++) {
-      //console.log(this.state.cardData.cards[i]);
-      //items.push(<Card value={this.state.cardData.cards[i]}></Card>);
       if(cards[i].imageUrl === undefined){
           cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
       }
       items.push(<Card value={cards[i]}></Card>);
     }
     console.log('items:');
-    //console.log(`items: ${items}`);
-    //items = this.FisherYatesShuffle(items);
     return items;
   }
 
@@ -142,23 +134,6 @@ class CardsByDan extends React.Component {
   
     return array;
   }
-
-/*   slider() {
-    return (
-      <div>
-        <Slider
-          aria-label="displayCount"
-          defaultValue={30}
-          valueLabelDisplay="auto"
-          step={1}
-          marks={true}
-          min={1}
-          max={5}
-        />
-        {this.newCardsButton()}
-      </div> 
-    )
-  } */
 
   displayCounter() {
     return (
@@ -181,16 +156,20 @@ class CardsByDan extends React.Component {
 
   updateDisplayCount(evt) {
     const count = evt.target.value;
-    this.setState({displayCount: count,});
+    //this.setState({displayCount: count, cardsToDisplay: false});
+    cardCount = count;
   }
 
   render() {
     return (
-      <div>
+        <div className="container">
+        <div className="row align-items-center my-5">
         <h1>Cards By Dan</h1>
+        <div className="col-lg-2">
         {this.displayCounter()}
         <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}</p>
-        <div>
+        </div>
+        <div className="col-lg-10">
           <img src="https://media.magic.wizards.com/image_legacy_migration/sideboard/images/usnat07/scott.jpg"
             alt="Dan Scott MtG Artist"/>
           <p>
@@ -199,6 +178,7 @@ class CardsByDan extends React.Component {
             including such iconic cards as Ponder, Solemn Simulacrum and Akroma's Memorial. 
             He's painted dozens of Hearthstone cards as well.
           </p>
+        </div>
         </div>
         <div className="d-inline-flex flex-wrap">
           {this.state.cardsToDisplay && this.displayCards()}
