@@ -5,6 +5,7 @@ function Home() {
   return (
     <div className="home">
       <div className="container">
+      <div className="homeRow">
         <div className="row align-items-center my-5">
           <div className="col-lg-7">
             <img
@@ -15,10 +16,12 @@ function Home() {
           </div>
           <div className="col-lg-4">
             <p>
-            Magic holds the title of "Most Played Trading Card Game," and is currently published in English, Simplified Chinese, Traditional Chinese, French, German, Italian, Korean, Japanese, Portuguese, Russian and Spanish.
-
-            There are currently more than 20,000 unique Magic cards, to which hundreds are added each year.
+              Magic holds the title of "Most Played Trading Card Game," and is currently published in English, Simplified Chinese, Traditional Chinese, French, German, Italian, Korean, Japanese, Portuguese, Russian and Spanish.
             </p>
+            <p>
+              There are currently more than 20,000 unique Magic cards, to which hundreds are added each year.
+            </p>
+          </div>
           </div>
         </div>
       </div>
