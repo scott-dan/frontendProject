@@ -8,9 +8,9 @@
     border-style: solid;
     padding: 10px;
     margin: 10px;
-    /* borrowed from https://www.w3docs.com/snippets/css/how-to-make-a-div-vertically-scrollable.html */
 }
 
+/* borrowed from https://www.w3docs.com/snippets/css/how-to-make-a-div-vertically-scrollable.html */
 .about-bg{
     width: 100%;
     height: 768px;
