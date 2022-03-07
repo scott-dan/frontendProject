@@ -1,0 +1,18 @@
+.home{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.col-lg-4{
+    border-radius: 15px;
+    background-image: url(../../images/slate.jpg);
+    background-repeat: repeat;
+    list-style: none;
+    border-color: #FFFFFF;
+    border-style: solid;
+    text-align: center;
+  }

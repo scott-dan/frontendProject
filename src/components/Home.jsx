@@ -1,4 +1,5 @@
 import React from "react";
+import "../components/styles/homeStyles.css";
 
 function Home() {
   return (
@@ -12,8 +13,7 @@ function Home() {
               alt="Magic: The Gathering logo"
             />
           </div>
-          <div className="col-lg-5">
-            <h1 className="font-weight-light">Home</h1>
+          <div className="col-lg-4">
             <p>
             Magic holds the title of "Most Played Trading Card Game," and is currently published in English, Simplified Chinese, Traditional Chinese, French, German, Italian, Korean, Japanese, Portuguese, Russian and Spanish.
 
