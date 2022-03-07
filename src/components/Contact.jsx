@@ -36,18 +36,18 @@ const Contact = () => {
                     <label htmlFor="nameTextInput">
                       Name <span>(required)</span>
                     </label><br />
-                    <input type="text" name="name" size="40" required></input>
+                    <input type="text" name="name" required></input>
                   </li>
 
                   <li>
                     <label htmlFor="emailTextInput">
                       Email <span>(required)</span>
                     </label><br />
-                    <input type="email" name="email" size="40" required></input>
+                    <input type="email" name="email" required></input>
                   </li>
                   <li>
                     <label htmlFor="commentsTextArea">Message</label><br />
-                    <textarea name="message" rows="4" cols="43"></textarea>
+                    <textarea name="message" rows="4"></textarea>
                   </li>
                   <li>
                     <button id="btn-primary">Submit</button>
