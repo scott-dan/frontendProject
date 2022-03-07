@@ -1,0 +1,11 @@
+.col-lg-4{
+    background-image: url(../../images/slate.jpg);
+    background-repeat: repeat;
+    list-style: none;
+    border-color: #FFFFFF;
+    border-style: solid;
+  }
+
+.ul{
+    list-style-type: none;
+}

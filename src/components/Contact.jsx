@@ -1,5 +1,6 @@
 import React from "react";
 import emailjs from "emailjs-com";
+import "../components/styles/contactStyles.css";
 
 const Contact = () => {
   function sendEmail(e) {
@@ -21,46 +22,41 @@ const Contact = () => {
     <div className="contact">
       <div className="container">
         <div className="row align-items-center my-5">
-          <div className="col-lg-7">
+          <div className="col-lg-6">
             <img
-              className="img-fluid rounded mb-4 mb-lg-0"
-              src="https://cutewallpaper.org/21/snorlax-images/Pokemon-Snorlax-Not-Today-T-Shirt-GameStop.jpg"
-              alt=""
-              height="600"
-              width="600"
+              src="https://i.imgur.com/dF8Ohsu.png"
+              alt="Snorlax Buddha"
             />
-            <p>Please, don't bother me. I'm probably sleeping.</p>
           </div>
-          <div className="col-lg-5 container border bg-dark">
-            <div className="col-lg-5">
+          <div className="col-lg-4">
               <form onSubmit={sendEmail}>
                 <ul>
                   <h2>Contact</h2>
                   <li>
                     <label htmlFor="nameTextInput">
                       Name <span>(required)</span>
-                    </label>
-                    <input type="text" name="name" required></input>
+                    </label><br />
+                    <input type="text" name="name" size="40" required></input>
                   </li>
 
                   <li>
                     <label htmlFor="emailTextInput">
                       Email <span>(required)</span>
-                    </label>
-                    <input type="email" name="email" required></input>
+                    </label><br />
+                    <input type="email" name="email" size="40" required></input>
                   </li>
                   <li>
-                    <label htmlFor="commentsTextArea">Message</label>
-                    <textarea name="message"></textarea>
+                    <label htmlFor="commentsTextArea">Message</label><br />
+                    <textarea name="message" rows="4" cols="43"></textarea>
                   </li>
                   <li>
                     <button id="btn-primary">Submit</button>
                     <button className="btn-secondary">Reset</button>
                   </li>
                   <br />
+                  <p>Please, don't bother me. I'm probably sleeping.</p>
                 </ul>
               </form>
-            </div>
           </div>
         </div>
       </div>
