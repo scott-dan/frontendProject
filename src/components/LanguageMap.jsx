@@ -10,7 +10,7 @@ import {
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-  const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=mana";
+  const BASE_URL = "https://api.magicthegathering.io/v1/cards/?";
 
 //const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=,&language=german"; //weird url required to obtain all languages
 
