@@ -1,0 +1,24 @@
+.col-lg-12{
+    justify-content: center;
+    border-radius: 15px;
+    background-image: url(../../images/slate.jpg);
+    background-repeat: repeat;
+    list-style: none;
+    border-color: #FFFFFF;
+    border-style: solid;
+    padding: 10px;
+    margin: 10px;
+    /* borrowed from https://www.w3docs.com/snippets/css/how-to-make-a-div-vertically-scrollable.html */
+}
+
+.about-bg{
+    width: 100%;
+    height: 768px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.about-bg > h1{
+    text-align: center;
+}
