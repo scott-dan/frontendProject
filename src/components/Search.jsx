@@ -7,7 +7,8 @@ import { noSpecialCharacters } from "./regex.jsx";
 let url = "https://api.magicthegathering.io/v1/";
 
 /**
- * Summary.
+ * Card function component used to display magic the gathering
+ *  card data on the UI.
  *
  * Description.
  *
@@ -72,7 +73,9 @@ function Card(props) {
 }
 
 /**
- * Summary.
+ * This class contains all the functions and methods to execute
+ * a search, validate and transform data, and display it on
+ * the UI, except for the Card function component.
  *
  * Description.
  *
@@ -101,12 +104,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * retrieve user input and save it in class state variable.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   updateInputValue(evt) {
     const val = evt.target.value;
     this.setState({
@@ -115,12 +118,13 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * User regular expressions to validate user input. Only alpha numeric
+   * characters are allowed. Aso takes care of extra whitespace.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   validateUserInput() {
     if (this.state.inputValue.length === 0) {
       console.log("no input detected.");
@@ -154,12 +158,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Set necessary state depending on outcome of api search call.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   processSearch(response) {
     if (response.headers.count === "0") {
       this.setState({
@@ -177,12 +181,13 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Retrieve magic the gathering card data from the API based
+   * on the user search parameters.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   getData() {
     let fullSearchUrl =
       url +
@@ -200,12 +205,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Place all card data into html containers right before rendering.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   renderDivs() {
     let uiItems = [];
     let length = parseInt(this.state.rawSearchResponse.headers.count);
@@ -218,12 +223,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Update user input state variables depending on user selection.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   handleDDLChange(event) {
     if (event.target.value === "toughness" || event.target.value === "power") {
       this.setState({
@@ -248,12 +253,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Function component for user search button.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   searchButton() {
     return (
       <div>
@@ -263,12 +268,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * .Function component for search bar
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   searchBar() {
     return (
       <div>
@@ -284,12 +289,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Function component for adjustable numeric input.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   numericRangeInput() {
     return (
       <div>
@@ -310,12 +315,12 @@ class Search extends React.Component {
   }
 
   /**
- * Summary.
- *
- * Description.
- *
- * @return {type} Return value description.
- */
+   * Function component for rarity drop down list.
+   *
+   * Description.
+   *
+   * @return {type} Return value description.
+   */
   raritySelectorDDL() {
     return (
       <div>

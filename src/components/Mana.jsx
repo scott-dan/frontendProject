@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "../components/styles/manaStyles.css";
 
 let url = "https://api.magicthegathering.io/v1/";
 let numCardsToDisplay = 20;
@@ -51,6 +52,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
+            className="img-expand"
             src={this.state.blackCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.blackCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -78,6 +80,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
+            className="img-expand"
             src={this.state.whiteCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.whiteCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -105,6 +108,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
+            className="img-expand"
             src={this.state.redCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.redCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -132,6 +136,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
+            className="img-expand"
             src={this.state.greenCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.greenCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -159,6 +164,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
+            className="img-expand"
             src={this.state.blueCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.blueCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -252,10 +258,11 @@ class Mana extends React.Component {
 
   render() {
     return (
-      <div className="d-inline-flex flex-wrap justify-content-evenly">
+      <div className="d-inline-flex flex-wrap justify-content-evenly bg">
         <div>
           <br />
-          <p>Black Mana</p>
+          <br />
+          <h1>Black Mana</h1>
           <br />
           {this.state.blackCardSearchResultsReadyToRender &&
             this.renderBlackManaDiv()}
@@ -263,7 +270,8 @@ class Mana extends React.Component {
         </div>
         <div>
           <br />
-          <p>White Mana</p>
+          <br />
+          <h1>White Mana</h1>
           <br />
           {this.state.whiteCardSearchResultsReadyToRender &&
             this.renderWhiteManaDiv()}
@@ -271,7 +279,8 @@ class Mana extends React.Component {
         </div>
         <div>
           <br />
-          <p>Red Mana</p>
+          <br />
+          <h1>Red Mana</h1>
           <br />
           {this.state.redCardSearchResultsReadyToRender &&
             this.renderRedManaDiv()}
@@ -279,7 +288,8 @@ class Mana extends React.Component {
         </div>
         <div>
           <br />
-          <p>Green Mana</p>
+          <br />
+          <h1>Green Mana</h1>
           <br />
           {this.state.greenCardSearchResultsReadyToRender &&
             this.renderGreenManaDiv()}
@@ -287,7 +297,8 @@ class Mana extends React.Component {
         </div>
         <div>
           <br />
-          <p>Blue Mana</p>
+          <br />
+          <h1>Blue Mana</h1>
           <br />
           {this.state.blueCardSearchResultsReadyToRender &&
             this.renderBlueManaDiv()}
@@ -299,3 +310,4 @@ class Mana extends React.Component {
 }
 
 export default Mana;
+  
