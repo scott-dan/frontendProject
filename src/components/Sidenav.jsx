@@ -1,11 +1,11 @@
 import React from 'react';
-
 import OffcanvasMenu from 'react-offcanvas-menu-component';
 
-function Sidenav({location}) {
+const mtgLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Magicthegathering-logo.svg/768px-Magicthegathering-logo.svg.png?20160501122627"
+
+function Sidenav() {
 	return(
 		<OffcanvasMenu
-			location={location}
 			config={{
 				push: true
 			}}
@@ -19,35 +19,12 @@ function Sidenav({location}) {
                 {text: 'About', link: '/about'},
                 {text: 'Language Map', link: '/languageMap'},
                 {text: 'Mana', link: '/mana'},
-			]}/* 
+			]}
 			header={
-				<img src={logo} className="App-logo menu-logo" alt="logo" width="250" height="100" />
-			} */
-			/* footer={<Footer />} */
+				<img src={mtgLogo} className="App-logo menu-logo" alt="logo" width="250" height="75" />
+			}
 		/>
-	)
+	);
 }
-
-/* const Footer = () => {
-	return(
-		<div className="social-wrap">
-			<h4>Socia Networks Footer</h4>
-			<ul className="social">
-				<li>
-					<img src={facebook} alt="facebook" />
-				</li>
-				<li>
-					<img src={twitter} alt="twitter" />
-				</li>
-				<li>
-					<img src={linkedin} alt="linkedin" />
-				</li>
-				<li>
-					<img src={stackoverflow} alt="stackoverflow" />
-				</li>
-			</ul>
-		</div>
-	)
-} */
 
 export default Sidenav;
