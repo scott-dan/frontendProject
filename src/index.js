@@ -13,11 +13,13 @@ import {
   CardsByDan,
   Statistics,
   LanguageMap,
-  Mana
+  Mana,
+  Sidenav,
 } from "./components";
 ReactDOM.render(
   <Router>
-    <Navigation />
+    {/* <Navigation /> */}
+    <Sidenav />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<Search />} />

@@ -9,3 +9,4 @@ export { default as Contact } from "./Contact";
 export { default as Statistics } from "./Statistics";
 export { default as LanguageMap } from "./LanguageMap";
 export { default as Mana } from "./Mana";
+export { default as Sidenav } from "./Sidenav";
