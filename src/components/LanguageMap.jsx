@@ -7,20 +7,8 @@ import {
     Marker
   } from "react-simple-maps";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
-
+const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 const BASE_URL = "https://api.magicthegathering.io/v1/cards/?";
-
-
-function Header(props) {
-  return (
-    <div>
-      <h1>{props.value.id}</h1>
-      <br />
-    </div>
-  )
-}
 
 function Card(props){
     return (
@@ -92,7 +80,7 @@ function Card(props){
         italian: false,
         korean: false,
         japanese: false,
-        portugese: false,
+        portuguese: false,
         russian: false,
         spanish: false,
       };
@@ -101,7 +89,7 @@ function Card(props){
     mapChart() {
       return (
         <ComposableMap>
-          <ZoomableGroup zoom={1.5} minZoom={1} maxZoom={5} center={[80, 30]}>
+          <ZoomableGroup zoom={1.5} minZoom={1.5} maxZoom={1.5} center={[80, 30]}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies
@@ -282,7 +270,7 @@ function Card(props){
                   {'Japanese'}
                 </text>
             </Marker>
-            <Marker hidden={!this.state.portugese} name="portugese" coordinates={[-9.2738, 38.7223]}>
+            <Marker hidden={!this.state.portuguese} name="portuguese" coordinates={[-9.2738, 38.7223]}>
                 <g
                   fill="none"
                   stroke="#FF5533"
@@ -299,7 +287,7 @@ function Card(props){
                   y='7'
                   style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
                 >
-                  {'Portugese'}
+                  {'Portuguese'}
                 </text>
             </Marker>
             <Marker hidden={!this.state.russian} name="russian" coordinates={[37.6173, 55.7558]}>
@@ -360,23 +348,24 @@ function Card(props){
         .catch((error) => this.setState({ apiCallError: true, cardsToDisplay: false }));
     }
 
+    displayHeader(header){
+      return (
+        <div>
+          <h1>{header}</h1>
+        </div>
+      );
+    }
+
     displayCards() {
-      let checklist = document.getElementById("checkboxContainer");
-      checklist = checklist.getElementsByTagName("input");
       let cards = this.state.cardData.cards;
       let items = [];
-      for(let i = 0; i < checklist.length; i++){
-        if(checklist[i].checked){
-          let rand = this.getRandomIntInclusive(0, 99);
-          cards = this.FisherYatesShuffle(cards);
-          items.push(<Header value={checklist[i]}></Header>);
-          for(let i = rand; i < rand + 10; i++){
-            if(cards[i].imageUrl === undefined){
-              cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
-            }
-            items.push(<Card value={cards[i]}></Card>);            
-          }
+      let rand = this.getRandomIntInclusive(0, 99);
+      cards = this.FisherYatesShuffle(cards);
+      for(let i = rand; i < rand + 3; i++){
+        if(cards[i].imageUrl === undefined){
+          cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
         }
+        items.push(<Card value={cards[i]}></Card>);            
       }
       return items;
     }
@@ -424,8 +413,8 @@ function Card(props){
           <label>Korean</label><br />
           <input type="checkbox" id="japanese" onChange={(evt) => this.handleEvent(evt)}/>
           <label>Japanese</label><br />
-          <input type="checkbox" id="portugese" onChange={(evt) => this.handleEvent(evt)}/>
-          <label>Portugese</label><br />
+          <input type="checkbox" id="portuguese" onChange={(evt) => this.handleEvent(evt)}/>
+          <label>Portuguese</label><br />
           <input type="checkbox" id="russian" onChange={(evt) => this.handleEvent(evt)}/>
           <label>Russian</label><br />
           <input type="checkbox" id="spanish" onChange={(evt) => this.handleEvent(evt)}/>
@@ -470,8 +459,8 @@ function Card(props){
         case 'japanese':
           this.setState({japanese: evt.target.checked});
           break;
-        case 'portugese':
-          this.setState({portugese: evt.target.checked});
+        case 'portuguese':
+          this.setState({portuguese: evt.target.checked});
           break;
         case 'russian':
           this.setState({russian: evt.target.checked});
@@ -490,10 +479,8 @@ function Card(props){
           <div className="container">
             <div className="row align-items-center my-5">
               <h1>Language Map</h1>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry. Lorem Ipsum has been the industry's standard dummy text
-                  ever since the 1500s, when an unknown printer took a galley of
-                  type and scrambled it to make a type specimen book.</p>
+              <p>This page will display 3 randomly selected cards from each user-selected language.
+              </p>
               <div className="col-lg-2">
                 {this.checkbox()}
               </div>
@@ -502,8 +489,59 @@ function Card(props){
               </div>
             </div>
           </div>
+          {this.state.english && this.state.cardsToDisplay && this.displayHeader("English")}
           <div className="d-inline-flex flex-wrap">
-            {this.state.cardsToDisplay && this.displayCards()}
+            {this.state.english && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+
+          {this.state.chineseS && this.state.cardsToDisplay && this.displayHeader("Chinese Simplified")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.chineseS && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+          
+          {this.state.chineseT && this.state.cardsToDisplay && this.displayHeader("Chinese Traditional")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.chineseT && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+          
+          {this.state.french && this.state.cardsToDisplay && this.displayHeader("French")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.french && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+          
+          {this.state.german && this.state.cardsToDisplay && this.displayHeader("German")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.german && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+          
+          {this.state.italian && this.state.cardsToDisplay && this.displayHeader("Italian")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.italian && this.state.cardsToDisplay && this.displayCards()}
+          </div>          
+          
+          {this.state.korean && this.state.cardsToDisplay && this.displayHeader("Korean")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.korean && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+          
+          {this.state.japanese && this.state.cardsToDisplay && this.displayHeader("Japanese")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.japanese && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+                    
+          {this.state.portuguese && this.state.cardsToDisplay && this.displayHeader("Portuguese")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.portuguese && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+          
+          {this.state.russian && this.state.cardsToDisplay && this.displayHeader("Russian")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.russian && this.state.cardsToDisplay && this.displayCards()}
+          </div>
+                    
+          {this.state.spanish && this.state.cardsToDisplay && this.displayHeader("Spanish")}
+          <div className="d-inline-flex flex-wrap">
+            {this.state.spanish && this.state.cardsToDisplay && this.displayCards()}
           </div>
         </div>
       );
