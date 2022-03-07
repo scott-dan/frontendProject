@@ -10,9 +10,17 @@ import {
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-  const BASE_URL = "https://api.magicthegathering.io/v1/cards/?";
+const BASE_URL = "https://api.magicthegathering.io/v1/cards/?";
 
-//const BASE_URL = "https://api.magicthegathering.io/v1/cards/?name=,&language=german"; //weird url required to obtain all languages
+
+function Header(props) {
+  return (
+    <div>
+      <h1>{props.value.id}</h1>
+      <br />
+    </div>
+  )
+}
 
 function Card(props){
     return (
@@ -76,7 +84,6 @@ function Card(props){
         apiCallError: false,
         cardData: [],
         cardsToDisplay: false,
-        displayCount: 3,
         english: false,
         chineseS: false,
         chineseT: false,
@@ -345,10 +352,57 @@ function Card(props){
       fetch(apiCall)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          this.parseCards(data.cards);
+          this.setState({
+            cardData: data, 
+            cardsToDisplay: true
+          });
         })
-        .catch((error) => this.setState({ apiCallError: true }));
+        .catch((error) => this.setState({ apiCallError: true, cardsToDisplay: false }));
+    }
+
+    displayCards() {
+      let checklist = document.getElementById("checkboxContainer");
+      checklist = checklist.getElementsByTagName("input");
+      let cards = this.state.cardData.cards;
+      let items = [];
+      for(let i = 0; i < checklist.length; i++){
+        if(checklist[i].checked){
+          let rand = this.getRandomIntInclusive(0, 99);
+          cards = this.FisherYatesShuffle(cards);
+          items.push(<Header value={checklist[i]}></Header>);
+          for(let i = rand; i < rand + 10; i++){
+            if(cards[i].imageUrl === undefined){
+              cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
+            }
+            items.push(<Card value={cards[i]}></Card>);            
+          }
+        }
+      }
+      return items;
+    }
+
+    getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    FisherYatesShuffle(array) {
+      let currentIndex = array.length,  randomIndex;
+    
+      // While there remain elements to shuffle...
+      while (currentIndex !== 0) {
+    
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+    
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+    
+      return array;
     }
 
     checkbox() {      
@@ -382,35 +436,15 @@ function Card(props){
     }
     buttons() {
       return (
-        <div className="checklistButtons">
+        <div>
           <button onClick={() => this.getCards()}>Get Cards</button>
-          {/*<button>Submit</button>*/}
-          {/*<button type="reset" value="Reset" onClick={() => this.clearMarkers()}>Reset</button>*/}
         </div>
       );
     }
 
-    /* clearMarkers() {
-      this.setState({
-        english: false,
-        chineseS: false,
-        chineseT: false,
-        french: false,
-        german: false,
-        italian: false,
-        korean: false,
-        japanese: false,
-        portugese: false,
-        russian: false,
-        spanish: false,
-      });
-      return;
-    } */
-
     handleEvent(evt) {
       console.log(evt.target.id);
       console.log(evt.target.checked);
-      //console.log(this.state);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});
@@ -450,53 +484,30 @@ function Card(props){
       }
     }
 
-      parseCards(cards) {
-        //create new array;
-        let langList = [];
-        let cardList = [];
-        //check all checkbox values
-        let checkList = document.getElementById("checkboxContainer");
-        checkList = checkList.getElementsByTagName("input");
-        //console.log(checkList);
-        for(let i = 0; i < checkList.length; i++) {
-          //console.log(`${checkList[i].id}: ${checkList[i].checked}`);
-          if(checkList[i].checked) {
-            langList.push(checkList[i].id);
-          }
-        }
-        console.log(`languages: ${langList}`);
-        for(let i = 0; i < cards.length; i++) {
-          if(langList.includes(cards[i].language)) {
-            cardList.push(cards[i]);
-          }
-        }
-        console.log(cardList);
-      }
-
     render() {
-        return (
-          <div>
-            <div className="container">
+      return (
+        <div>
+          <div className="container">
             <div className="row align-items-center my-5">
-            <h1>Language Map</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book.</p>
-            <div className="col-lg-2">
+              <h1>Language Map</h1>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                  industry. Lorem Ipsum has been the industry's standard dummy text
+                  ever since the 1500s, when an unknown printer took a galley of
+                  type and scrambled it to make a type specimen book.</p>
+              <div className="col-lg-2">
                 {this.checkbox()}
-            </div>
-            <div className="col-lg-10">
-            {this.mapChart()}
-            </div>
-            </div>
-            </div>
-            <div className="d-inline-flex flex-wrap">
-              {/* {this.state.mapToDisplay && this.displayCards()} */}
+              </div>
+              <div className="col-lg-10">
+                {this.mapChart()}
+              </div>
             </div>
           </div>
-        );
-      }
+          <div className="d-inline-flex flex-wrap">
+            {this.state.cardsToDisplay && this.displayCards()}
+          </div>
+        </div>
+      );
+    }
 }
 
 export default LanguageMap;
