@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/styles/danStyles.css";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
@@ -159,10 +160,11 @@ class CardsByDan extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
+        <div className="container">
         <div className="row align-items-center my-5">
           <h1>Cards By Dan</h1>
-          <div className="col-lg-2">
+          <div className="col-lg-4">
             {this.displayCounter()}
             <p>This returns a randomly selected card illustrated by the artist Dan Scott. 
               Click the refresh button to load another card.</p>
@@ -180,8 +182,11 @@ class CardsByDan extends React.Component {
             </div>  
           </div>
         </div>
-        <div className="d-inline-flex flex-wrap">
-          {this.state.cardsToDisplay && this.displayCards()}
+        </div>
+        <div className="dan-bg">
+          <div className="d-inline-flex flex-wrap">
+            {this.state.cardsToDisplay && this.displayCards()}
+          </div>
         </div>
       </div>
     );
