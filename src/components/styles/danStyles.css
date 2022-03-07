@@ -1,0 +1,9 @@
+.danInfo{
+    border-radius: 15px;
+    display: flex;
+    gap: 5px;
+    border: 2px solid white;
+    padding: 5px;
+    margin: 5px;
+    background-image: url(../../images/slate.jpg);
+  }
