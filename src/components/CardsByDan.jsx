@@ -104,17 +104,13 @@ class CardsByDan extends React.Component {
   displayCards() {
     let items = [];
     let cards = this.state.cardData.cards;
-    console.log("line 106");
-    console.log(cards);
     cards = this.FisherYatesShuffle(this.state.cardData.cards);
-      console.log(this.state.displayCount);
       for (let i = 0; i < this.state.displayCount; i++) {
       if(cards[i].imageUrl === undefined){
           cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
       }
       items.push(<Card value={cards[i]}></Card>);
     }
-    console.log('items:');
     return items;
   }
 
@@ -163,12 +159,13 @@ class CardsByDan extends React.Component {
 
   render() {
     return (
-        <div className="container">
+      <div className="container">
         <div className="row align-items-center my-5">
           <h1>Cards By Dan</h1>
           <div className="col-lg-2">
             {this.displayCounter()}
-            <p>This returns a randomly selected card illustrated by the artist Dan Scott. Click the refresh button to load another card. {/*I think I'd like to change this to refresh on a set interval. Perhaps add settings for refresh timing and number of cards to display*/}</p>
+            <p>This returns a randomly selected card illustrated by the artist Dan Scott. 
+              Click the refresh button to load another card.</p>
           </div>
           <div className="col-lg-8">
             <div className="danInfo">
