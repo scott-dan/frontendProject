@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/styles/danStyles.css";
 
 const url = "https://api.magicthegathering.io/v1/cards/?artist=dan+scott";
@@ -77,7 +78,6 @@ class CardsByDan extends React.Component {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         this.setState({
           cardData: data,
           cardsToDisplay: true,
@@ -109,7 +109,7 @@ class CardsByDan extends React.Component {
       if(cards[i].imageUrl === undefined){
           cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
       }
-      items.push(<Card value={cards[i]}></Card>);
+      items.push(<Card key={i}value={cards[i]}></Card>);
     }
     return items;
   }
@@ -159,13 +159,12 @@ class CardsByDan extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
+        <div className="container">
         <div className="row align-items-center my-5">
           <h1>Cards By Dan</h1>
-          <div className="col-lg-2">
+          <div className="col-lg-4">
             {this.displayCounter()}
-            <p>This returns a randomly selected card illustrated by the artist Dan Scott. 
-              Click the refresh button to load another card.</p>
           </div>
           <div className="col-lg-8">
             <div className="danInfo">
@@ -180,8 +179,11 @@ class CardsByDan extends React.Component {
             </div>  
           </div>
         </div>
-        <div className="d-inline-flex flex-wrap">
-          {this.state.cardsToDisplay && this.displayCards()}
+        </div>
+        <div className="dan-bg">
+          <div className="d-inline-flex flex-wrap">
+            {this.state.cardsToDisplay && this.displayCards()}
+          </div>
         </div>
       </div>
     );
