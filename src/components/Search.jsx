@@ -212,11 +212,15 @@ class Search extends React.Component {
    * @return {type} Return value description.
    */
   renderDivs() {
+    let cards = this.state.rawSearchResponse.data.cards;
     let uiItems = [];
     let length = parseInt(this.state.rawSearchResponse.headers.count);
     for (let i = 0; i < length; i++) {
+      if(cards[i].imageUrl === undefined){
+        cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
+      }
       uiItems.push(
-        <Card key={i} value={this.state.rawSearchResponse.data.cards[i]}></Card>
+        <Card key={i} value={cards[i]}></Card>
       );
     }
     return uiItems;
