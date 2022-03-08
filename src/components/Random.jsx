@@ -66,7 +66,6 @@ function rnd() {
   let rand = Math.floor(Math.random() * 4980);
   let searchUrl = url + "/" + rand;
   let randSelected = Math.floor(Math.random() * 100);
-  console.log(searchUrl);
 
   let page = document.getElementById("randomResult");
 
@@ -92,7 +91,6 @@ function rnd() {
         //Ensures it's a valid card.
         if (data.card.multiverseid !== undefined) {
           //Outputs for console viewing
-          console.log(data.card);
           display(data.card);
         } else {
           console.error("Invalid card id passed.");

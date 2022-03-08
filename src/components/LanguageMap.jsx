@@ -365,7 +365,7 @@ function Card(props){
         if(cards[i].imageUrl === undefined){
           cards[i].imageUrl = "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
         }
-        items.push(<Card value={cards[i]}></Card>);            
+        items.push(<Card key={i} value={cards[i]}></Card>);
       }
       return items;
     }
@@ -432,8 +432,6 @@ function Card(props){
     }
 
     handleEvent(evt) {
-      console.log(evt.target.id);
-      console.log(evt.target.checked);
       switch (evt.target.id) {
         case 'english':
           this.setState({english: evt.target.checked});

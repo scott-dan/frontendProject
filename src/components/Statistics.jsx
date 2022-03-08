@@ -129,7 +129,6 @@ function rarity() {
   if (PAGE === PAGE_MAX) return;
   let searchUrl = url + "?page=" + PAGE;
   PAGE++;
-  console.log(searchUrl);
   let common = 0;
   let uncommon = 0;
   let rare = 0;
@@ -143,7 +142,6 @@ function rarity() {
     .then((response) => response.json())
     .then((data) => {
       data.cards.forEach((element) => {
-        console.log(element);
         if (element.rarity === "Common") {
           common++;
         }
@@ -172,7 +170,6 @@ function power() {
   if (PAGE === PAGE_MAX) return;
   let searchUrl = url + "?page=" + PAGE;
   PAGE++;
-  console.log(searchUrl);
   let one = 0,
     two = 0,
     three = 0,
@@ -196,7 +193,6 @@ function power() {
     .then((response) => response.json())
     .then((data) => {
       data.cards.forEach((element) => {
-        console.log(element);
         if (element.power === "1") {
           one++;
         }
@@ -244,7 +240,6 @@ function colors() {
   if (PAGE === PAGE_MAX) return;
   let searchUrl = url + "?page=" + PAGE;
   PAGE++;
-  console.log(searchUrl);
   let white = 0;
   let blue = 0;
   let black = 0;
@@ -260,22 +255,23 @@ function colors() {
     .then((response) => response.json())
     .then((data) => {
       data.cards.forEach((element) => {
-        console.log(element);
-        for (let i = 0; i < element.colors.length; i++) {
-          if (element.colors[i] === "White") {
-            white++;
-          }
-          if (element.colors[i] === "Blue") {
-            blue++;
-          }
-          if (element.colors[i] === "Black") {
-            black++;
-          }
-          if (element.colors[i] === "Red") {
-            red++;
-          }
-          if (element.colors[i] === "Green") {
-            green++;
+        if(element.colors){
+          for (let i = 0; i < element.colors.length; i++) {
+            if (element.colors[i] === "White") {
+              white++;
+            }
+            if (element.colors[i] === "Blue") {
+              blue++;
+            }
+            if (element.colors[i] === "Black") {
+              black++;
+            }
+            if (element.colors[i] === "Red") {
+              red++;
+            }
+            if (element.colors[i] === "Green") {
+              green++;
+            }
           }
         }
       });

@@ -3,7 +3,6 @@ import axios from "axios";
 import "../components/styles/manaStyles.css";
 
 let url = "https://api.magicthegathering.io/v1/";
-let numCardsToDisplay = 20;
 class Mana extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +51,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
-            className="img-expand"
+            className="img-expand" key={i}
             src={this.state.blackCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.blackCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -80,7 +79,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
-            className="img-expand"
+            className="img-expand"key={i}
             src={this.state.whiteCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.whiteCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -108,7 +107,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
-            className="img-expand"
+            className="img-expand" key={i}
             src={this.state.redCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.redCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -136,7 +135,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
-            className="img-expand"
+            className="img-expand" key={i}
             src={this.state.greenCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.greenCardsSearchResponse.data.cards[i].name}
           ></img>
@@ -164,7 +163,7 @@ class Mana extends React.Component {
       ) {
         uiItems.push(
           <img
-            className="img-expand"
+            className="img-expand" key={i}
             src={this.state.blueCardsSearchResponse.data.cards[i].imageUrl}
             alt={this.state.blueCardsSearchResponse.data.cards[i].name}
           ></img>

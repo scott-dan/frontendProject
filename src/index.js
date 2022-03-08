@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
-  Navigation,
   Footer,
   Home,
   Search,
@@ -18,7 +17,6 @@ import {
 } from "./components";
 ReactDOM.render(
   <Router>
-    {/* <Navigation /> */}
     <Sidenav />
     <Routes>
       <Route path="/" element={<Home />} />

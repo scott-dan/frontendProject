@@ -302,7 +302,7 @@ class Search extends React.Component {
     return (
       <div>
         <br />
-        <label for="numericRangeInput">Range: 0-99</label>
+        <label htmlFor="numericRangeInput">Range: 0-99</label>
         <br />
         <input
           type="number"
