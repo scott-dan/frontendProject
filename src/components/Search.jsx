@@ -220,7 +220,7 @@ class Search extends React.Component {
         responseData.data.cards[i].imageUrl =
           "https://i.pinimg.com/474x/ca/9c/f3/ca9cf3805131982d0b205b694022c637--magic-cards-web-browser.jpg";
       }
-      uiItems.push(<Card value={responseData.data.cards[i]}></Card>);
+      uiItems.push(<Card key={i} value={responseData.data.cards[i]}></Card>);
     }
     return uiItems;
   }
@@ -344,7 +344,7 @@ class Search extends React.Component {
         <h1>Searchpage</h1>
         <div>
           <select onChange={(event) => this.handleDDLChange(event)}>
-            <option value="none" selected disabled hidden>
+            <option value="none" default disabled hidden>
               Select a search category
             </option>
             <option>name</option>
