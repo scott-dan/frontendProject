@@ -17,3 +17,8 @@
     border-style: solid;
     text-align: center;
   }
+
+  body{
+    background-repeat:no-repeat;
+    background-size:cover;
+  }
